@@ -1,0 +1,65 @@
+﻿@*Main Widget Container*@
+<div class="widget-menu">
+    <div class="top-widget">
+        <div class="widget-item" id="settings">
+           <i class="fa-regular fa-circle-user fa-20"></i>
+        </div>
+        <div class="widget-item" data-bs-toggle="offcanvas" href="#notification-container" id="event-widget">
+            <button type="button" class="btn btn-widget position-relative">
+                <i class="fa-regular fa-bell fa-20"></i>
+                <span id="event-badge" class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle d-none">
+                </span>
+            </button>
+            
+        </div>
+        <div class="widget-item">
+            <i class="fa-regular fa-file fa-20"></i>
+        </div>
+        <div class="widget-item">
+            <i class="fa-regular fa-comment fa-20"></i>
+        </div>
+        <div class="widget-item">
+            <i class="fa-solid fa-plus fa-20"></i>
+        </div>
+    </div>
+
+    <div class="bottom-widget">
+        <div class="widget-item">
+            <i class="fa-regular fa-circle-question fa-20"></i>
+        </div>
+        <div class="widget-item" id="signout">
+            <i class="fa-solid fa-arrow-right-from-bracket fa-20"></i>
+        </div>
+    </div>
+</div>
+
+@* =======================
+    Settings popup
+======================= *@
+
+@{
+    await Html.RenderPartialAsync("~/Views/Common/Layout/UserSettings.cshtml");
+}
+
+
+@* =======================
+      Notification
+======================= *@
+@{
+    await Html.RenderPartialAsync("~/Views/Common/Layout/NotificationCenter.cshtml");
+}
+
+
+@* =======================
+      Alert Center
+======================= *@
+@{
+    await Html.RenderPartialAsync("~/Views/Common/Layout/AlertCenter.cshtml");
+}
+
+@* =======================
+      Alert Center
+======================= *@
+@{
+    await Html.RenderPartialAsync("~/Views/Common/Layout/PopupAlertCenter.cshtml");
+}

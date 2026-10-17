@@ -1,0 +1,34 @@
+﻿#staff-chart {
+    width: 100%;
+    height: 30vh;
+}
+
+#project-chart {
+    width: 100%;
+    height: 30vh;
+}
+
+#scheme-chart {
+    width: 100%;
+    height: 30vh;
+}
+
+#animal-chart {
+    width: 100%;
+    height: 30vh;
+}
+
+.chart-card {
+    background-color: #f7f7f7;
+    margin-top: 16px;
+    border-radius: 6px;
+    padding: 10px;
+}
+
+.cards {
+    height: 10vh;
+}
+
+.card-common{
+    height:10vh;
+}

@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Template";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@using BL.Models.Template;
+@model TemplateDTO;
+
+<div id="">
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"> Design Guide </span>
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" onclick="TemplateList.export()">Export Excel</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+</div>
+
+<table id="TemplateTable"></table>
+
+
+
+@section Scripts{
+    <script src="~/Scripts/Template/TemplateList.js" type="module"></script>
+}

@@ -1,0 +1,109 @@
+﻿/* 
+=======================
+         Login
+=======================
+*/
+
+
+/*main panel*/
+#login-panel {
+    width: 100vw;
+    height: 100vh;
+}
+
+/*forgotPassword panel*/
+#forgotpassword-panel {
+    width: 100vw;
+    height: 100vh;
+}
+
+/*login header for icons*/
+.login-header {
+    justify-content: space-between;
+}
+
+/*Login body*/
+.login-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    padding: 10vw;
+}
+
+/*icons + logo images*/
+.loginLogo {
+    height: 8vh;
+}
+
+/*login labels*/
+.login-label{
+    font-weight: 500 !important;
+}
+
+/*login input + states*/
+.login-input {
+    border: none !important;
+    border-bottom: 1px solid #dddddd !important;
+    margin-bottom: 5% !important;
+    color: #646464 !important;
+    border-radius: 0px !important;
+    background: #ffffff !important;
+}
+    input.form-control.login-input:hover {
+        border: none !important;
+        border-bottom: 1px solid #dddddd !important;
+    }
+
+    .login-input:focus {
+        border: none !important;
+        border-bottom: 1px solid #8f8f8f !important;
+        box-shadow: none !important;
+    }
+
+
+#password-show-hide {
+    color: #7E7E7E;
+    transition: color 250ms ease-in-out;
+    cursor: pointer;
+    position: absolute;
+    top: 10px;
+    bottom: 0;
+    right: 15px;
+    margin: auto;
+}
+
+.password-body {
+    position: relative;
+}
+
+/*login right panel*/
+#login-img-panel {
+    border-left: 1px solid #DDDDDD;
+    background: url(/assets/Modules/Login/mfrs-side-panel.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+/*login secondary actions*/
+#login-actions {
+    justify-content: space-between;
+}
+
+
+
+#link {
+    display: inline-block;
+    width: 100%;
+    color: white;
+}
+
+.nomargin {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.contentCompanyInfo {
+    height: 55vh;
+    overflow: auto;
+}

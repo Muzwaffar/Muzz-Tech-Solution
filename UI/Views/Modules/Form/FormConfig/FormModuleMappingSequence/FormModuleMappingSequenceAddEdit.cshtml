@@ -1,0 +1,44 @@
+﻿@using BL.Models.Form;
+@model FormModuleMappingSequenceDTO;
+
+<div id="FormModuleMappingSequence-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Category Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "number", @placeholder = "Id"})
+        </div>
+
+        @*Form*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Form, new {@id = "select-form-id"})
+            <select class="form-select" id="select-form" name="Form" Result="Form" required>
+                <option value=""></option>
+            </select>
+            <label for="select-form" class="label-required">Form</label>
+        </div>
+
+        @*Module*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Module, new {@id = "select-module-id"})
+            <select class="form-select" id="select-module" name="Module" Result="Module" required>
+                <option value=""></option>
+            </select>
+            <label for="select-module" class="label-required">Module</label>
+        </div>
+
+        @*Sequence*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Sequence, new { @class="form-control",@result="Sequence", @id = "sequence", @type = "number", @placeholder = "Sequence"})
+            <label class="label-floating label-required">Sequence</label>
+        </div>
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="FormModuleMappingSequenceAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

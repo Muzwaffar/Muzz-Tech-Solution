@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.ComponentModel.DataAnnotations;
+using System.Text;
+using System.Threading.Tasks;
+using DAL.Models.Administration;
+using System.ComponentModel.DataAnnotations.Schema;
+using DAL.Common;
+
+namespace DAL.Models.Transaction
+{
+    public class NPF_TRN_IncidentDamage : BaseAuditModel, IAuditable
+    {
+        [Key]
+        public long Id { get; set; }
+        public long IncidentId { get; set; }
+        public string Details { get; set; } = string.Empty;
+        public float? EstimatedValue { get; set; } 
+        public float? Cost { get; set; } 
+        public float? Salvage { get; set; } 
+
+    }
+}

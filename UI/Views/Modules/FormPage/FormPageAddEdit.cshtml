@@ -1,0 +1,209 @@
+﻿@{
+    ViewData["Title"] = "Form Page";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@*Model Used *@
+@using BL.Models.FormPage;
+@model FormPageDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger">@ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container*@
+<div class="row content-scrollspy">
+    <div class="col-10 content-form">
+        <div id="Form-Page-AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+
+            <div id="scrollspy-general" class="scrollspy-transition">
+                <div class="section" data-bs-toggle="collapse" href="#general" aria-expanded="true">
+                    <span class="span-medium"> General </span>
+                    <span class="collapsible-icon"></span>
+                </div>
+                <div class="collapse form-panel show" id="general">
+
+                    @if (Model != null)
+                    {
+                        <input type="text" id="ApprovalStatus" value=@Model.Approval class="d-none">
+                    }
+
+                    @*id*@
+                    @Html.TextBoxFor(m => m.FormPageId, new { @id = "FormPageId", @class = "d-none", @type = "number", @result = "FormPageId" })
+
+                    @*Code*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Code" })
+                        <label>Code</label>
+                    </div>
+
+                    @*Project*@
+                    <div class="form-floating">
+                        @Html.HiddenFor(m => m.FormId, new { @id = "select-FormId-id" })
+                        <select class="form-select" id="select-FormId" name="FormId" result="FormId">
+                            <option value=""></option>
+                        </select>
+                        <label for="select-FormId" class="label-required">Form</label>
+                    </div>
+
+                    @*Form Color*@
+                    <div class="form-floating d-none" id="colour-picker">
+                        @Html.TextBoxFor(m => m.Colour, new { @class = "form-control", @result = "Colour", @id = "Colour", @type = "color", @placeholder = "Colour", @list = "presetColors" })
+                        <datalist id="presetColors">
+                            <option value="#F9E79F" />
+                            <option value="#D7BDE2" />
+                            <option value="#A9CCE3" />
+                            <option value="#A3E4D7" />
+                            <option value="#ABEBC6" />
+
+                            <option value="#F5B7B1" />
+                            <option value="#F5CBA7" />
+                            <option value="#EDBB99" />
+                            <option value="#D7DBDD" />
+                            <option value="#85929E" />
+
+                            <option value="#EC7063" />
+                            <option value="#A569BD" />
+                            <option value="#5DADE2" />
+                            <option value="#48C9B0" />
+                            <option value="#52BE80" />
+
+                            <option value="#F4D03F" />
+                            <option value="#F39C12" />
+                            <option value="#16A085" />
+                            <option value="#2E86C1" />
+                            <option value="#D35400" />
+
+                        </datalist>
+                        <label class="label-required color">Colour</label>
+                        <span class="naveo-color span-smaller">Please Choose Light Colors</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="div-to-change"></div>
+
+        </div>
+    </div>
+    <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu">
+        <span class="naveo-color m-3"> Sections</span>
+        <div class="scrollspy-content">
+            <div class="m-3">
+                <a href="#scrollspy-general">
+                    <span class="span-small">General</span>
+                </a>
+            </div>
+            <div class="scrollspy-to-change"></div>
+        </div>
+    </div>
+</div>
+
+@*Partial View Approval Start*@
+<div id="partial" class="overlay-partial">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-gear me-2"></i><span id="approval-popup-title">Approval</span></span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</div>
+@*Partial View Approval Start*@
+
+@*Partial View Approval Start*@
+@* <div id="partial" class="overlay-partial">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-gear me-2"></i>Send As Activity</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</div> *@
+@*Partial View Approval Start*@
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="FormPageAddEdit.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    @if (Model.GeneralStatus == DAL.Common.GeneralStatus.Open)
+    {
+
+        @if (Model == null || Model.Approval == DAL.Common.ApprovalStatus.Draft || Model.Approval == DAL.Common.ApprovalStatus.Saved || Model.Approval == DAL.Common.ApprovalStatus.None)
+        {
+            <button id="value-draft-btn" title="Save" onclick="FormPageAddEdit.save(1)" class="form-control noView btn-c-secondary me-3"><i class="fa fa-save me-2"></i>Save As Draft</button>
+            <button id="value-save-btn" title="Save" onclick="FormPageAddEdit.save(11)" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Submit</button>
+        }
+        else
+        {
+            @if (Model.ApprovalS == DAL.Common.ApprovalStatus.None)
+            {
+                <button id="value-draft-btn" title="Save" onclick="FormPageAddEdit.save(1)" class="form-control noView btn-c-secondary me-3"><i class="fa fa-save me-2"></i>Save As Draft</button>
+                <button id="value-save-btn" title="Save" onclick="FormPageAddEdit.save(11)" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Submit</button>
+
+            }
+        }
+
+
+    }
+    @if (Model.GeneralStatus != DAL.Common.GeneralStatus.Open)
+    {
+        @if (Model != null)
+        {
+            @if (Model.Approval == DAL.Common.ApprovalStatus.AwaitingApproval && Model.IsApprover == true)
+            {
+                <button id="value-approve-btn" title="Decline" onclick="FormPageAddEdit.approval(2)" class="form-control btn-c-info me-3"><i class="fa fa-save me-2"></i>Decline</button>
+                <button id="value-decline-btn" title="Approve" onclick="FormPageAddEdit.approval(1)" class="form-control btn-c-primary me-3"><i class="fa fa-save me-2"></i>Approve</button>
+            }
+            @if (Model.Approval == DAL.Common.ApprovalStatus.Approved || Model.Approval == DAL.Common.ApprovalStatus.Declined || (Model.Approval == DAL.Common.ApprovalStatus.AwaitingApproval && Model.IsApprover == false))
+            {
+                <span id="statusText" class="mx-3 span-large w-auto
+                @(Model.Approval == DAL.Common.ApprovalStatus.AwaitingApproval ? "naveo-color-orange" :
+                    Model.Approval == DAL.Common.ApprovalStatus.Approved ? "naveo-color-green" :
+                    Model.Approval == DAL.Common.ApprovalStatus.Declined ? "naveo-color-red" :
+                    "")">
+                    @Model.Approval
+                </span>
+            }
+            @if (Model.Status == DAL.Common.Status.Rework)
+            {
+                <span id="statusText" class="mx-3 span-large w-auto
+                  @("naveo-color-orange")">
+                    @Model.Status
+                </span>
+            }
+        }
+        @*         else
+    {
+    <span id="statusText" class="mx-3 span-large w-auto
+    @(Model.GeneralStatus == DAL.Common.GeneralStatus.Inprogress ? "naveo-color-orange" :
+    Model.GeneralStatus == DAL.Common.GeneralStatus.Completed ? "naveo-color-green" :
+    Model.GeneralStatus == DAL.Common.GeneralStatus.Closed ? "naveo-color-red" :
+    "")">
+    @Model.GeneralStatus
+    </span>
+    }   *@
+    }
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Modules/FormPage/FormPageAddEdit.js" type="module"></script>
+    <script src="~/Scripts/Modules/Common/ApprovalService.js" type="module"></script>
+}

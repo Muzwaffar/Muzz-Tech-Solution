@@ -1,0 +1,66 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+    ViewData["Title"] = "My Activities";
+}
+
+@*References Styles*@
+@section CSS{
+    <link rel="stylesheet" href="~/css/Modules/Activities/activities.css" />
+}
+
+@*Main Container*@
+<div id="SR">
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa fa-book me-2 fa-1x"></i> My Activities </span>
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" onclick="$('.buttons-excel').click()">Export Excel</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+</div>
+<div id="page-container-activities">
+    @*Table*@
+    <div class="row" id="table-activity-container">
+        @*Datatable*@
+        <table id="ActivitiesTable"></table>
+    </div>
+
+    @*Graphs*@
+    <div class="row mt-3">
+        @*Activities by Type*@
+        <div class="col chart-container">
+            <span class="d-flex span-large justify-content-center">Activities</span>
+            <div id="activity-chart-by-type"></div>
+        </div>
+
+        @*Activities By Status*@
+        <div class="col chart-container">
+            <span class="d-flex span-large justify-content-center">Activities Status</span>
+            <div id="activity-chart-by-status"></div>
+        </div>
+    </div>
+</div>
+@*Partial View*@
+<div id="partial" class="overlay-partial">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-clone me-2"></i>My Activities</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</div>
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Activities/Activities.js" type="module"></script>
+    <script src="~/Scripts/Modules/Activities/ActivitiesAddEdit.js" type="module"></script>
+}

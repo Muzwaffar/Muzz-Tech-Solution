@@ -1,0 +1,65 @@
+﻿@using BL.Models.Access;
+@model OfficeZonesCRUDTO;
+
+<div id="OfficeZones-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*OfficeZones Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "number", @placeholder = "Id"})
+        </div>
+
+        @*OfficeZones Code*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "code", @type = "text", @placeholder = "Code", @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*OfficeZones Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.OfficeName, new { @class="form-control",@result="OfficeName", @id = "OfficeName", @type = "text", @placeholder = "OfficeName" ,@required  = "required"})
+            <label class="label-floating label-required">OfficeName</label>
+        </div>
+
+        @*Abbreviation*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Abbreviation, new { @class="form-control",@result="Abbreviation", @id = "Abbreviation", @type = "text", @placeholder = "Abbreviation" ,@required  = "required"})
+            <label class="label-floating label-required">Abbreviation</label>
+        </div>
+
+        @*Department*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Department, new {@id = "select-department-id"})
+            <select class="form-select" id="select-department" name="Department" Result="Department" required>
+                <option value=""></option>
+            </select>
+            <label for="select-department" class="label-required">Department</label>
+        </div>
+
+        @*Locality*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Locality, new {@id = "select-locality-id"})
+            <select class="form-select" id="select-locality" name="Locality" Result="Locality" required>
+                <option value=""></option>
+            </select>
+            <label for="select-locality" class="label-required">Locality</label>
+        </div>
+
+        @*Zone*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Zone, new {@id = "select-zone-id"})
+            <select class="form-select" id="select-zone" name="Zone" Result="Zone" required>
+                <option value=""></option>
+            </select>
+            <label for="select-zone" class="label-required">Zone</label>
+        </div>
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="OfficeZonesAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

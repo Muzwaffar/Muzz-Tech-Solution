@@ -1,0 +1,198 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Model Used *@
+@using BL.Models.Administration
+@model EquipmentDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="Equipment-tab" data-bs-toggle="pill" data-bs-target="#details-Equipment" type="button" role="tab" aria-controls="details-Equipment" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="equipment-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-Equipment" role="tabpanel" aria-labelledby="Equipment-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-details" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                            <span class="span-medium"> General Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="details">
+                            @*Name*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @result = "Name", @id = "Name", @type = "text", @placeholder = "Name", @readonly=true })
+                                <label class="label-required">Name</label>
+                            </div>
+                            @*Description*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @result = "Description", @id = "Description", @type = "text", @placeholder = "Description" })
+                                <label>Description</label>
+                            </div>
+                            @*AssignmentType*@
+                            <div class="form-custom form-control-radio">
+                                @Html.HiddenFor(m => m.AssignmentType, new { @id = "AssignmentType" })
+                                <label class="radio-label">Assignment Type</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="AssignmentType" value="1" id="resource" onclick="Equipment.getDropdownsByAssignementType(1);">
+                                    <label class="form-check-label" for="resource">
+                                        Resource
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="AssignmentType" value="2" id="location" onclick="Equipment.getDropdownsByAssignementType(2);">
+                                    <label class="form-check-label" for="location">
+                                        Location
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="AssignmentType" value="3" id="vehicle" onclick="Equipment.getDropdownsByAssignementType(3);">
+                                    <label class="form-check-label" for="vehicle">
+                                        Vehicle
+                                    </label>
+                                </div>
+                            </div>
+                            @*AssignmentId*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.AssignmentId, new { @id = "select-AssignmentId-id" })
+                                <select class="form-select" id="select-AssignmentId" name="AssignmentId" result="AssignmentId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-AssignmentId" class="">AssignmentId</label>
+                            </div>
+                            @*Category*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Category, new { @id = "select-Category-id" })
+                                <select class="form-select" id="select-Category" name="Category" result="Category">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Category" class="label-required">Category</label>
+                            </div>
+                            @*Abbreviation*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Abbreviation, new { @id = "select-Abbreviation-id" })
+                                <select class="form-select" id="select-Abbreviation" name="Abbreviation" result="Abbreviation">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Abbreviation" class="label-required">Abbreviation</label>
+                            </div>
+
+                            @*Make*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Make, new { @id = "select-Make-id" })
+                                <select class="form-select" id="select-Make" name="Make" result="Make">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Make" class="label-required">Make</label>
+                            </div>
+
+                            @*Model*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Model, new { @id = "select-Model-id" })
+                                <select class="form-select" id="select-Model" name="Model" result="Model">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Model" class="label-required">Model</label>
+                            </div>
+
+                            @*Manufacturer*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Manufacturer, new { @class = "form-control", @result = "Manufacturer", @id = "Manufacturer", @type = "text", @placeholder = "Manufacturer" })
+                                <label>Manufacturer</label>
+                            </div>
+
+                            @*Manufacturing Date*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.ManufacturingDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @result = "ManufacturingDate", @id = "ManufacturingDate", @type = "date", @placeholder = "Manufacturing Date" })
+                                <label>Manufacturing Date</label>
+                            </div>
+
+                            @*Serial No*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.SerialNo, new { @class = "form-control", @result = "SerialNo", @id = "SerialNo", @type = "text", @placeholder = "SerialNo" })
+                                <label>Serial No.</label>
+                            </div>
+
+                            @*External Reference Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.ExternalReferenceCode, new { @class = "form-control", @result = "ExternalReferenceCode", @id = "ExternalReferenceCode", @type = "text", @placeholder = "ExternalReferenceCode" })
+                                <label>External Reference Code</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-details">
+                            <span class="span-medium">General Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="Equipment.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-save-btn" title="Save" onclick="Equipment.save()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Administration/AssetManagement/Equipment/Equipment.js" type="module"></script>
+}

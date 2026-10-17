@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="icon" href="/assets/Common/Logo/naveo_Fav_Ico.png">
+    @* =======================
+         Common CSS used
+    ======================= *@
+
+    @* BOOTSRAP *@
+    <link rel="stylesheet" href="~/lib/bootstrap-5.2.3/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-5.2.3/css/bootstrap-grid.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-5.2.3/css/bootstrap-reboot.min.css" />
+    <link rel="stylesheet" href="~/lib/bootstrap-5.2.3/css/bootstrap-utilities.min.css" />
+    @* FONTAWESOME *@
+    <link rel="stylesheet" href="~/lib/fontawesome/fontawesome-free-6.2.0-web/css/all.css" />
+    @* ANIMATE CSS *@
+    <link rel="stylesheet" href="~/lib/animate/animate.min.css" />
+    @* W3 STYLES *@
+    <link rel="stylesheet" href="~/lib/w3css/css/w3styles.css" />
+    @* SELECT 2 *@
+    <link rel="stylesheet" href="~/lib/select2/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="~/lib/select2/dist/css/select2-bootstrap.css" />
+    @* MULTISELECT *@
+    <link rel="stylesheet" href="~/lib/bootstrap-multiselect/bootstrap-multiselect.css" />
+    @* DATATABLE *@
+    <link rel="stylesheet" href="~/lib/datatable/datatables.min.css" />
+    @* CALENDAR *@
+    <link rel="stylesheet" href="~/lib/fullcalendar/cdncssdelivr.css" />
+    @* DATEPICKER *@
+    <link rel="stylesheet" href="~/lib/daterangepicker-3.1/daterangepicker.css" />
+    @* TOASTER *@
+    <link rel="stylesheet" href="~/lib/toastr-2.1.4/toastr.min.css" />
+    @* LEAFLET *@
+    <link rel="stylesheet" href="~/lib/leaflet-1.8.0/leaflet.css" />
+    <link rel="stylesheet" href="~/lib/leafler-draw-1.0.4/dist/leaflet.draw.css" />
+    @* JSTREE *@
+    <link rel="stylesheet" href="~/lib/jstree-3.3.16/dist/themes/default/style.min.css" />
+    @* MAIN *@
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+
+    @RenderSection("CSS", required: false)
+
+</head>
+<body>
+    <div class="main-layout">
+        @* =======================
+        Loading
+        ======================= *@
+        @{
+            await Html.RenderPartialAsync("~/Views/Common/Layout/LoadingCommon.cshtml");
+        }
+        @* =======================
+        Side Menu
+        ======================= *@
+        @{
+            await Html.RenderPartialAsync("~/Views/Common/Layout/Sidemenu.cshtml");
+        }
+
+        @* =======================
+        main html render
+        ======================= *@
+        <main role="main" class="main-container p-3 w3-animate-opacity">
+            @RenderBody()
+        </main>
+
+
+        @* =======================
+        Widget Menu
+        ======================= *@
+        @{
+            await Html.RenderPartialAsync("~/Views/Common/Layout/WidgetMenu.cshtml");
+        }
+
+
+        
+    </div>
+
+
+    @* =======================
+    Partial View Change Password
+    ======================= *@
+    @{
+        await Html.RenderPartialAsync("~/Views/Common/Layout/ChangePasswordLogin.cshtml");
+    }
+
+    @* =======================
+    Common Scripts used
+    ======================= *@
+    @* JQUERY *@
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    @* JQUERY VALIDATION*@
+    <script src="~/lib/jquery-validate-1.19.2/jquery-validate.js"></script>
+    @* JQUERY MASK *@
+    <script src="~/lib/jquery-mask-1.14.16/dist/jquery.mask.min.js"></script>
+    @* IDLE TIMER *@
+    <script src="~/lib/jquery-idle-timer-1.1.1/idle-timer.min.js"></script>
+    @* BOOTSRAP *@
+    <script src="~/lib/bootstrap-5.2.3/js/bootstrap.bundle.min.js"></script>
+    @* MOMENT *@
+    <script src="~/lib/momentjs-2.27.0/moment.js"></script>
+    @* SWEET ALERT *@
+    <script src="~/lib/sweetalert2-11.4.33/package/dist/sweetalert2.all.min.js"></script>
+    @* SELECT 2 *@
+    <script src="~/lib/select2/dist/js/select2.full.js"></script>
+    <script src="~/lib/select2/dist/js/select2-adapter-1.0.0.js"></script>
+    @* MULTISELECT *@
+    <script src="~/lib/bootstrap-multiselect/bootstrap-multiselect.js"></script>
+    @* DATATBLE *@
+    <script src="~/lib/datatable/datatables.min.js"></script>
+    @* CALENDAR *@
+    <script src="~/lib/fullcalendar/cdnjsdelivr.js"></script>
+    <script src="~/lib/fullcalendar/dist/fullcalendar.min.js"></script>
+    @* DATE RANGE PICKER *@
+    <script src="~/lib/daterangepicker-3.1/daterangepicker.js"></script>
+    <script src="~/lib/datatable/datetime.js"></script>
+    @* TOASTER *@
+    <script src="~/lib/toastr-2.1.4/toastr.min.js"></script>
+    @* LEAFLET *@
+    <script src="~/lib/leaflet-1.8.0/leaflet.js"></script>
+    <script src="~/lib/leafler-draw-1.0.4/dist/leaflet.draw.js"></script>
+    @* JSPDF *@
+    <script src="~/lib/jsPDF-2.5.1/jspdf.umd.min.js"></script>
+    @* JSTREE *@
+    <script src="~/lib/jstree-3.3.16/dist/jstree.min.js"></script>
+    @* AMCHART 5 *@
+    <script src="~/lib/amcharts-5.2.28/index.js"></script>
+    <script src="~/lib/amcharts-5.2.28/xy.js"></script>
+    <script src="~/lib/amcharts-5.2.28/percent.js"></script>
+    <script src="~/lib/amcharts-5.2.28/themes/Animated.js"></script>
+    @* LOTTIE PLAYER *@
+    <script src="~/lib/lottie-player-2.0.2/lottie-player.js"></script>
+    @* SIGNATURE PAD *@
+    <script src="~/lib/signature-pad-4.1.7/signature_pad.umd.min.js"></script>
+    @* AUTOCOMPLETE  *@
+    <script src="~/lib/devbridge-autocomplete-1.4.11/package/dist/jquery.autocomplete.min.js"></script>
+    @* LISTENERS *@
+    <script type="module" src="~/Scripts/Common/Container/SidemenuListener.js"></script>
+    <script type="module" src="~/Scripts/Common/Container/Listener.js"></script>
+    @* MODULES *@
+    <script type="module" src="~/Scripts/Common/LayoutCustom/LayoutCustom.js"></script>
+    <script src="~/Scripts/Common/ValidationService.js" type="module"></script>
+    @* MAIN *@
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

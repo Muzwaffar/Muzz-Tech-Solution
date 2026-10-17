@@ -1,0 +1,114 @@
+﻿@using BL.Models.Administration;
+@model UserDTO;
+
+<div id="User-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*User Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*UserToken HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.UserToken, new { @class="form-control",@result="UserToken", @id = "UserToken", @type = "text", @placeholder = "UserToken"})
+        </div>
+
+        @*User Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="UserCode", @id = "UserCode", @type = "text", @placeholder = "UserCode" , @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Title*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Title, new {@id = "select-title-id" })
+            <select class="form-select" id="select-title" name="Title" result="Title" required>
+                <option value=""></option>
+            </select>
+            <label for="select-title" class="label-required"> Title </label>
+        </div>
+
+        @*User FirstName*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.FirstName, new { @class="form-control",@result="FirstName", @id = "firstName", @type = "text", @placeholder = "First Name"})
+            <label class="label-floating label-required">First Name</label>
+        </div>
+
+        @*User LastName*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.LastName, new { @class="form-control",@result="LastName", @id = "lastName", @type = "text", @placeholder = "Surname"})
+            <label class="label-floating label-required">Surname</label>
+        </div>
+
+        @*User Email*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Email, new { @class="form-control",@result="Email", @id = "email", @type = "text", onfocusout="Validation.email($(event.target))", @placeholder = "Email"})
+            <label class="label-floating label-required">Email</label>
+        </div>
+
+        @*User TelephoneNo*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.TelephoneNo, new { @class="form-control",@result="TelephoneNo", @id = "telephoneNo", @type = "text", @placeholder = "Telephone No"})
+            <label class="label-floating">Telephone No</label>
+        </div>
+
+
+        @*Roles*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Roles, new {@id = "select-roles-id" })
+            <select class="form-select" id="select-roles" name="Role" result="Roles" Roles="Id">
+                <option value=""></option>
+            </select>
+            <label for="select-roles" class="label-required"> Roles </label>
+        </div>
+
+        @*ResourceType*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.ResourceType, new {@id = "select-resourceType-id" })
+            <select class="form-select" id="select-resourceType" name="ResourceType" result="ResourceType">
+                <option value=""></option>
+            </select>
+            <label for="select-resourceType" class="label-required"> Resource Type </label>
+        </div>
+
+        @*PostHeld*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.PostHeld, new {@id = "select-postHeld-id" })
+            <select class="form-select" id="select-postHeld" name="PostHeld" result="PostHeld">
+                <option value=""></option>
+            </select>
+            <label for="select-postHeld" class="label-required"> Post Held </label>
+        </div>
+
+        @*Office*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Office, new {@id = "select-office-id" })
+            <select class="form-select" id="select-office" name="Office" result="Office">
+                <option value=""></option>
+            </select>
+            <label for="select-office"> Office </label>
+        </div>
+        @*User Type*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.UserType, new { @id = "select-UserType-id" })
+            <select class="form-select" id="select-UserType" name="UserType" result="UserType">
+                <option value=""></option>
+            </select>
+            <label for="select-office"> User Type </label>
+        </div>
+
+        <div class="mt-4 w-100">
+            <label for="tree" class="mb-2 label-required"> Matrix </label>
+            <div id="tree"></div>
+        </div>
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="value-save-btn" title="Save" onclick="UserAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,187 @@
+﻿@{
+	ViewData["Title"] = @ViewBag.Name;
+	Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@*Model Used *@
+@using BL.Models.Schedule;
+@model AddEditSchduleDTO;
+@*Top nav bar Start*@
+<div id="">
+	@*Top nav bar Container*@
+	<div class="breadcrumb-container d-flex">
+		@*Breadcrumb - Left *@
+		<div class="breadcrumb-sub-container">
+			@*Breadcrumb : Text *@
+			<span class="span-larger"> @ViewBag.Name </span>
+			@*Breadcrumb : Action *@
+			<a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+			@*Breadcrumb : Dropdown *@
+			<div class="dropdown-context">
+			</div>
+		</div>
+		@*Section - Right *@
+		<div class="section-container d-flex">
+			@*Section Nav : container *@
+			<nav>
+				<div class="nav nav-pill" id="nav-tab" role="tablist">
+					@*Section Nav Item: Form Info *@
+					@*IMPORTANT : id  ,target, controls, active class *@
+					<button class="nav-link active section-menu" id="FormPagePDFMapping-tab" data-bs-toggle="pill" data-bs-target="#details-FormPagePDFMapping" type="button" role="tab" aria-controls="details-FormPagePDFMapping" aria-selected="true">
+						<span class="span-medium">
+							@*Section Item: Icon for Status *@
+							<i class="fa fa-circle-dot me-2"></i>
+							@*Section Item: Text *@
+							General Information
+						</span>
+					</button>
+
+				</div>
+			</nav>
+		</div>
+	</div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="template-form-mapping">
+	@*Main Container scrollspy : Form Info*@
+	<div class="tab-pane fade show active" id="details-FormPagePDFMapping" role="tabpanel" aria-labelledby="FormPagePDFMapping-tab">
+		@*scrollspy*@
+		<div class="row content-scrollspy">
+			@*scrollspy content*@
+			<div class="col-10 content-form">
+				<div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-Form" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+					@*scrollspy sub section*@
+					<div id="scrollspy-details" class="scrollspy-transition">
+						@*sub section Header*@
+						<div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+							<span class="span-medium"> Form </span>
+							<span class="collapsible-icon"></span>
+						</div>
+						@*sub section Content*@
+						<div class="collapse form-panel show" id="details">
+
+							@*Schedule Name*@
+							<div class="form-floating">
+								@Html.TextBoxFor(m => m.ScheduleName, new { @class = "form-control", @result = "ScheduleName", @id = "ScheduleName", @type = "text", @placeholder = "Job Name" })
+								<label class="label-floating label-required">Job Name</label>
+							</div>
+
+							@*Start Date Time*@
+							<div class="form-floating">
+								@Html.TextBoxFor(m => m.StartTime, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", @result = "StartTime", @id = "StartTime", @type = "datetime-local", @placeholder = "StartTime"/* , @oninput = "ScheduleListAddEdit.getDropdownByDate()" */ })
+								<label class="label-floating label-required">Start Date Time</label>
+							</div>
+
+							@*End Date Time*@
+							<div class="form-floating">
+								@Html.TextBoxFor(m => m.EndTime, "{0:yyyy-MM-ddTHH:mm}", new { @class = "form-control", @result = "EndTime", @id = "EndTime", @type = "datetime-local", @placeholder = "EndTime"/* , @oninput = "ScheduleListAddEdit.getDropdownByDate()" */ })
+								<label class="label-floating label-required">End Date Time</label>
+							</div>
+
+							@*Zone*@
+							<div class="form-floating">
+								@Html.HiddenFor(m => m.Zone, new { @id = "select-zone-id" })
+								<select class="form-select" id="select-zone" name="Zone" result="Zone">
+									<option value=""></option>
+								</select>
+								<label for="select-zone" class="">Zone</label>
+							</div>
+
+							@*Form*@
+							<div class="form-floating">
+								@Html.HiddenFor(m => m.Form, new { @id = "select-form-id" })
+								<select class="form-select" id="select-form" name="Form" result="Form">
+									<option value=""></option>
+								</select>
+								<label for="select-form" class="label-required">Form</label>
+							</div>
+
+							@*Form*@
+							<div class="form-floating" id="FormItems">
+								@Html.HiddenFor(m => m.FormPage, new { @id = "select-items-id" })
+								<select class="form-select" id="select-items" name="Items" result="FormPage">
+									<option value=""></option>
+								</select>
+								<label for="select-items" class="label-required">Items</label>
+							</div>
+
+							@*Item*@
+							@* <div class="form-floating">
+								@Html.HiddenFor(m => m.Item, new { @id = "select-item-id" })
+								<select class="form-select" id="select-item" name="Item" result="Item">
+									<option value=""></option>
+								</select>
+								<label for="select-item" class="label-required">Item</label>
+							</div> *@
+
+							@*Service Multiselect*@
+							@* <div class="form-floating d-none" id="services">
+								<select id="multiselect-service" multiple="multiple" name="Service">
+								</select>
+								<label class="label-multiselect label-required">Services</label>
+							</div> *@
+
+							@*Button show service detail*@
+							@* <div class="align-self-end ms-3 mt-3">
+							<button id="detail-btn" title="Show Details" onclick="ScheduleListAddEdit.showServicesInformation()" class="form-control btn-c-secondary w-auto"><i class="fa fa-sync me-2"></i>Show Sevice Details</button>
+							</div> *@
+							<hr />
+							@*Resource*@
+							<div class="form-floating">
+								<select class="form-select" id="select-Resource" name="Resource">
+									<option value=""></option>
+								</select>
+								<label for="select-Resource" class="">Resource</label>
+							</div>
+
+							@*Add Data To Table*@
+							<button id="Resource-addT-btn" title="Add" onclick="ScheduleListAddEdit.addRelationResource()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Data To Table</button>
+
+							@*Relation Table*@
+							<div class="w-100">
+								<table id="relation-Resource-Table"></table>
+							</div>
+
+							@*Remark*@
+							<div class="form-floating">
+								@Html.TextAreaFor(m => m.Remark, new { @class = "form-control", @result = "Remark", @id = "Remark", @type = "text", @placeholder = "Remark" })
+								@* <input type="text" class="form-control input-floating" id="Remark" placeholder="Remark" />*@
+								<label class="label-textarea-floating">Remark</label>
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			@*scrollspy action*@
+			<div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-Form">
+				@*scrollspy action : Header*@
+				<span class="naveo-color m-3"> Sections</span>
+				@*scrollspy actions content*@
+				<div class="scrollspy-content">
+					@*scrollspy actions item*@
+					<div class="m-3">
+						<a href="#scrollspy-details">
+							<span class="span-medium">Form</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+@*Main Container End*@
+
+@*Actions*@
+<div class="row action-bar">
+	<button id="value-back-btn" title="Back" onclick="ScheduleListAddEdit.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+	<button id="value-save-btn" title="Save" onclick="ScheduleListAddEdit.saveUpdate()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+
+</div>
+
+@section Scripts {
+	<script src="~/Scripts/Modules/Schedule/ScheduleList/ScheduleListAddEdit.js" type="module"></script>
+}

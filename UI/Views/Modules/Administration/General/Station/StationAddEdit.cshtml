@@ -1,0 +1,87 @@
+﻿@using BL.Models.Administration;
+@model StationCRUDDTO;
+
+<div id="Station-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Station Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*Station Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Code" , @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Station Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Station Name</label>
+        </div>
+
+        @*Station Description*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "Description", @type = "text", @placeholder = "Description"} )
+            <label class="label-floating">Station Description</label>
+        </div>
+
+        @*Single dropdown Station Type*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.StationType, new {@id = "select-StationType-id" })
+            <select class="form-select" id="select-StationType" name="StationType" result="StationType" required>
+                <option value=""></option>
+            </select>
+            <label for="select-StationType" class="label-required"> Station Type </label>
+        </div>
+
+
+        @*Single dropdown Station Location*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.StationLocation, new {@id = "select-StationLocation-id" })
+            <select class="form-select" id="select-StationLocation" name="StationLocation" result="StationLocation" required>
+                <option value=""></option>
+            </select>
+            <label for="select-StationLocation" class="label-required"> Station Location</label>
+        </div>
+
+        @*Station Call Sign*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.StationCallSign, new { @class="form-control",@result="StationCallSign", @id = "StationCallSign", @type = "text", @placeholder = "Station Call Sign" ,@required  = "required"})
+            <label class="label-floating label-required">Station Call Sign</label>
+        </div>
+
+        @*Station Phone Number*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class="form-control",@result="PhoneNumber", @id = "PhoneNumber", @type = "text", @placeholder = "Phone Number" ,@required  = "required"})
+            <label class="label-floating label-required">Phone Number</label>
+        </div>
+
+        @*Station Contact Number*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.ContactNumber, new { @class="form-control",@result="ContactNumber", @id = "ContactNumber", @type = "text", @placeholder = "Contact Number"})
+            <label class="label-floating">Contact Number</label>
+        </div>
+
+        @*Station Fax*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Fax, new { @class="form-control",@result="Fax", @id = "Fax", @type = "text", @placeholder = "Fax"})
+            <label class="label-floating">Fax</label>
+        </div>
+
+        @*Station Email*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Email, new { @class="form-control",@result="Email", @id = "Email", @type = "text", @placeholder = "Email"})
+            <label class="label-floating">Email</label>
+        </div>
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="value-save-btn" title="Save" onclick="StationAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

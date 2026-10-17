@@ -1,0 +1,49 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+    ViewData["Title"] = "Workflow";
+}
+
+<div id="steppers-main-container">
+    <div class="stepper-container">
+
+        <span class="stepper-title">This is a title</span>
+        <div class="step-indicator">
+                <a class="step active" data-bs-toggle="collapse" href="#step1">
+                    <div class="step-icon">1</div>
+                    <span>Delivery</span>
+                </a>
+                <div class="indicator-line active"></div>
+                <a class="step active">
+                    <div class="step-icon">2</div>
+                    <span>Payment</span>
+                </a>
+                <div class="indicator-line active"></div>
+                <a class="step">
+                    <div class="step-icon">3</div>
+                    <span>Confirmation Confirmation Payment</span>
+                </a>
+                <div class="indicator-line"></div>
+                <div class="step">
+                    <div class="step-icon">3</div>
+                    <span>Confirmation</span>
+                </div>
+           
+        </div>
+
+        <div id="step1" class="collapse">
+            <p>Confirmation</p>
+            <p>Confirmation</p>
+            <p>Confirmation</p>
+            <p>Confirmation</p>
+            <p>Confirmation</p>
+            <p>Confirmation</p>
+        </div>
+    </div>
+
+</div>
+
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Workflow/Workflow.js" type="module"></script>
+}

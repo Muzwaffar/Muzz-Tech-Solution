@@ -1,0 +1,55 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+    ViewData["Title"] = @ViewBag.Name;// "Plan";
+}
+@section CSS {
+    <link rel="stylesheet" href="~/css/Modules/Incident/Incident.css" />
+}
+@*Main Container*@
+<div id="">
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa-solid fa-fire me-2 fa-1x"></i> @ViewBag.Name </span>
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+                <ul class="dropdown-menu">
+                   
+                </ul>
+            </div>
+
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+
+    <div class="switchboard offset-3">
+        <input id="fire" class="switchboard__connector" type="radio" name="test" onchange="Incident.getServiceRequestMapData('Fire Incident')" />
+        <label for="fire" class="switchboard__jack"><i class="fa fa-fire" aria-hidden="true"></i>Fire Incident</label>
+
+        <input id="non-fire" class="switchboard__connector" type="radio" onchange="Incident.getServiceRequestMapData('Non Fire Incident')" name="test" />
+        <label for="non-fire" class="switchboard__jack"><i class="fa fa-truck-medical" aria-hidden="true"></i>Non-Fire Incident</label>
+
+        <input id="non-incident" class="switchboard__connector" type="radio" onchange="Incident.getServiceRequestMapData('Non Incident')" name="test" />
+        <label for="non-incident" class="switchboard__jack"><i class="fa fa-circle-xmark" aria-hidden="true"></i>Non-Incident</label>
+
+        <input id="all" class="switchboard__connector" type="radio" onchange="Incident.getServiceRequestMapData()" name="test" checked />
+        <label for="all" class="switchboard__jack"><i class="fa fa-circle" aria-hidden="true"></i>All</label>
+
+    </div>
+
+    <div class="row">
+        <div class="col-8">
+            <div id="map-long"></div>
+        </div>
+        <div class="col-4 h-86-scroll">
+            <div class="list-group list-group-flush" id="list-group">
+            </div>
+        </div>
+    </div>
+</div>
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Incident/Incident.js" type="module"></script>
+}

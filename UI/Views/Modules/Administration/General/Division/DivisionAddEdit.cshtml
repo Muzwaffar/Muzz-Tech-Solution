@@ -1,0 +1,46 @@
+﻿@using BL.Models.Administration;
+@model DivisionCRUDDTO;
+
+<div id="Division-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Division Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*Division Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Code" , @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Division Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Division Name</label>
+        </div>
+
+        @*Division Description*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "Description", @type = "text", @placeholder = "Description"} )
+            <label class="label-floating">Division Description</label>
+        </div>
+
+        @*Single dropdown Division Department*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.DeptId, new {@id = "select-department-D-id" })
+            <select class="form-select" id="select-department-D" name="DeptId" result="DeptId" required>
+                <option value=""></option>
+            </select>
+            <label for="select-department" class="label-required">Department</label>
+        </div>
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="value-save-btn" title="Save" onclick="DivisionAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

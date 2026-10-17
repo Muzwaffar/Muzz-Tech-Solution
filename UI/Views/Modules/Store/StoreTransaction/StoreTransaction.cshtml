@@ -1,0 +1,258 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="storetransaction-tab" data-bs-toggle="pill" data-bs-target="#details-storetransaction" type="button" role="tab" aria-controls="details-storetransaction" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="store-transaction-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-storetransaction" role="tabpanel" aria-labelledby="storetransaction-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-stock-request" class="scrollspy-transition d-none">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#stock-request" aria-expanded="true">
+                            <span class="span-medium"> Stock Request </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="stock-request">
+
+                            @*stock request Table*@
+                            <div class="w-100 mh-50-scroll">
+                                <table id="stock-request-Table"></table>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <div id="scrollspy-store-transaction" class="scrollspy-transition ">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#store-transaction" aria-expanded="true">
+                            <span class="span-medium"> Store Transaction </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="store-transaction">
+
+                            @*store transaction Table*@
+                            <div class="w-100 mh-50-scroll">
+                                <table id="store-transaction-Table"></table>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div id="scrollspy-store-item" class="scrollspy-transition ">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#store-item" aria-expanded="true">
+                            <span class="span-medium"> Store Item </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="store-item">
+
+                            @*store item Table*@
+                            <div class="w-100 mh-50-scroll">
+                                <table id="store-item-Table"></table>
+                            </div>
+							
+                            <div id ="Store-AddEdit-Panel">
+                                <div class="form-panel">
+
+                                    @*StoreId*@
+                                    <div class="form-floating d-none">
+                                        <input type="number" class="form-control" id="StoreId" placeholder="StoreId" result="StoreId" readonly />
+                                    </div>
+
+                                    @*Name*@
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="Name" placeholder="Name" result="Name" readonly />
+                                        <label>Name</label>
+                                    </div>
+
+                                    @*CostPrice*@
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="CostPrice" placeholder="CostPrice" result="CostPrice" />
+                                        <label class="label-required">Cost Price</label>
+                                    </div>
+
+                                    @*DateRecieved*@
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="DateRecieved" placeholder="c" max="@DateTime.Now.ToString("yyyy-MM-dd")" result="DateRecieved" />
+                                        <label class="label-required">Date Recieved</label>
+                                    </div>
+
+                                    @*Store Location*@
+                                    <div class="form-floating">
+                                        <select class="form-select" id="select-store-location" name="StoreLocation" result="StoreLocation">
+                                            <option value=""></option>
+                                        </select>
+                                        <label for="select-store-location" class="label-required">Store Location</label>
+                                    </div>
+
+                                    @*Quantity*@
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="Quantity" placeholder="Quantity" result="Quantity" />
+                                        <label class="label-required">Quantity</label>
+                                    </div>
+
+                                    @*AvailableQuantity*@
+                                    <div class="form-floating">
+                                        <input type="number" class="form-control" id="AvailableQuantity" placeholder="AvailableQuantity" result="AvailableQuantity" readonly />
+                                        <label>Available Quantity</label>
+                                    </div>
+
+                                    @*ExpiryDate*@
+                                    <div class="form-floating">
+                                        <input type="date" class="form-control" id="ExpiryDate" placeholder="ExpiryDate" min="@DateTime.Now.ToString("yyyy-MM-dd")" result="ExpiryDate" />
+                                        <label>Expiry Date</label>
+                                    </div>
+
+                                    @*Supplier*@
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="Supplier" placeholder="Supplier" result="Supplier" />
+                                        <label>Supplier</label>
+                                    </div>
+
+                                    @*BatchNo*@
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="BatchNo" placeholder="BatchNo" result="BatchNo" />
+                                        <label>Batch No</label>
+                                    </div>
+
+                                    @*PONo*@
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="PONo" placeholder="PONo" result="PONo" />
+                                        <label>PO No</label>
+                                    </div>
+
+                                    @*Remarks*@
+                                    <div class="form-floating">
+                                        <textarea class="form-control input-floating" id="Remarks" placeholder="Remarks" result="Remarks"></textarea>
+                                        <label>Remarks</label>
+                                    </div>
+
+                                </div>
+                            </div>
+                            @*Actions*@
+                            <button id="value-save-btn" title="Save" onclick="StoreTransaction.save()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-save me-2"></i>save</button>
+                        </div>
+
+                    </div>
+                    <div id="scrollspy-stock-history" class="scrollspy-transition ">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#stock-history" aria-expanded="true">
+                            <span class="span-medium"> Stock History </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="stock-history">
+                            @*store item In Table*@
+                            <div class="w-100 mh-50-scroll">
+                                <table id="in-Table"></table>
+                            </div>
+
+                            @*store item Out Table*@
+                            <div class="w-100 m-5 mh-50-scroll">
+                                <table id="out-Table"></table>
+                            </div>
+
+                            @*store item request Table*@
+                            <div class="w-100 m-5 mh-50-scroll">
+                                <table id="request-Table"></table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3 d-none">
+                        <a href="#scrollspy-stock-request">
+                            <span class="span-medium">Stock Request</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-store-transaction">
+                            <span class="span-medium">Store Transaction</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-store-item">
+                            <span class="span-medium">Store Item</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-stock-history">
+                            <span class="span-medium">Stock History</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+
+@*Actions*@
+@* <div class="row action-bar">
+    <button id="value-save-btn" title="Save" onclick="LivestockControlBook.save()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div> *@
+
+@section Scripts {
+    <script src="~/Scripts/Modules/Store/StoreTransaction/StoreTransaction.js" type="module"></script>
+}

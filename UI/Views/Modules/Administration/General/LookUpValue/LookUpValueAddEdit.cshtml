@@ -1,0 +1,43 @@
+﻿@using DAL.Models.Administration;
+@model NPF_SYS_LookUpValue;
+
+<div id="LookupValue-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Lookup Value Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*Lookup Value Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Name</label>
+        </div>
+
+        @*Title*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.LookUpType.Id, new {@id = "select-lookuptype-id"})
+            <select class="form-select" id="select-lookuptype" name="LookUpType" LookUpType="Id">
+                <option value=""></option>
+            </select>
+            <label for="select-lookuptype" class="label-required">Lookup Type</label>
+        </div>
+
+        @*Lookup Value Description*@
+        <div class="form-floating ">
+            @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "Description", @type = "text", @placeholder = "Description" })
+            <label class="label-textarea-floating">Description</label>
+        </div>
+
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="value-save-btn" title="Save" onclick="LookupValueAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>
+ 

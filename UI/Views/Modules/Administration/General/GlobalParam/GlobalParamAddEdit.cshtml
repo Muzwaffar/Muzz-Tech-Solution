@@ -1,0 +1,49 @@
+﻿@using BL.Models.Administration;
+@model GlobalParamCRUDDTO;
+
+<div id="GlobalParam-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*GlobalParam Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*GlobalParam Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Global Param Name" ,@required  = "required", @readonly="true"})
+            <label class="label-floating label-required">Global Param Name</label>
+        </div>
+
+        @*GlobalParam Value*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Value, new { @class="form-control",@result="Value", @id = "Value", @type = "text", @placeholder = "Value", @required  = "required"})
+            <label class="label-floating label-required">Value</label>
+        </div>
+
+        @*GlobalParam Additional Value*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.AdditionalValue, new { @class="form-control",@result="AdditionalValue", @id = "AdditionalValue", @type = "text", @placeholder = "AdditionalValue"})
+            <label class="label-floating label-required">Additional Value</label>
+        </div>
+
+        @*GlobalParam Comment*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Comment, new { @class="form-control",@result="Comment", @id = "Comment", @type = "text", @placeholder = "Comment"} )
+            <label class="label-floating label-required">Comment</label>
+        </div>
+
+        @*GlobalParam Admin only*@
+        <div class="form-floating">
+            @Html.CheckBoxFor(m => m.AdminOnly, new { @class="form-control",@result="AdminOnly", @id = "AdminOnly", @type = "checkbox", @placeholder = "CheckBox"})
+            <label class="label-checkbox">Admin Only</label>
+        </div>
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="value-save-btn" title="Save" onclick="GlobalParamAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

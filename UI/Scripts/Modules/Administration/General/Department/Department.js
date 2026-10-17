@@ -1,0 +1,58 @@
+﻿import { ApiService, ApiType } from "/Scripts/Common/apiService.js";
+import { Variable } from "/Scripts/Common/variable.js";
+import { DatatableService } from "/Scripts/Common/DatatableService.js";
+import { AlertBoxService } from "/Scripts/Common/AlertBoxService.js";
+
+export class Department {//class that handles the list screen
+    constructor() {
+        $(document).ready(() => {
+            //close partial view on reload
+            window.location.href = "#";
+            //Column list for Make to build table (predefined columns)
+            //data: object key
+            //title: column title to show
+            var ColumnList = [
+                { data: 'id', title: 'Id', visible: false },
+                { data: 'code', title: 'Code' },
+                { data: 'name', title: 'Name' },
+                { data: 'description', title: 'Description' }
+            ];
+
+            //(Table ID, Partial View ID, Button to open popup , url api to get list, column list (From above), class name where action function is defined)           
+            DatatableService.initializeDataGridPopup('DepartmentTable', 'partial', 'Department.openPopupAddEdit(0, true)', variable.getListDepartment, ColumnList, 'Department');
+        });
+    }
+
+    //open popup partial view
+    openPopupAddEdit(Id, option = false) {
+        //empty partial view content 
+        $(".content").html("")
+        //call api to get partial view
+        if (Id == 0) { Id = "" };
+        ApiService.callCustom(ApiType.POST, new Variable().getByIdDepartment, Id, (data) => {
+            if (data) {
+                //set partial view content
+                $(".content").html(data);
+                //Hide Save Button
+                if (!option) {
+                    $(".noView").each(function (i, obj) {
+                        obj.classList.add("d-none")
+                    });
+                }
+            }
+        })
+    }
+
+    //delete Department
+    delete(Id) {
+        //show confirmation box for delete
+        //Parameters: API URL, Id to delete(data to pass), module name 
+        AlertBoxService.deleteMasterAlertBox(new Variable().deleteDepartment, Id, "Department");
+    }
+
+    //Export Excel Event 
+    export() {
+        $('.buttons-excel').click();
+    };
+}
+window.Department = new Department(); 

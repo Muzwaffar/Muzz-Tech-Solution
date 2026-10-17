@@ -1,0 +1,48 @@
+﻿.btn-edit-secondary-shift {
+    width: 125px;
+    color: var(--cs-a-secondary-b) !important;
+    background-color: var(--cs-l-white) !important;
+    border: 1px solid var(--cs-a-secondary-b) !important;
+    background: none !important;
+    height: 43px !important;
+}
+
+    .btn-c-secondary:focus {
+        background-color: var(--cs-a-secondary-h) !important;
+        color: var(--cs-a-secondary-b !important);
+        box-shadow: 0 0 0 0.25rem rgb(172 198 242 / 25%) !important;
+    }
+
+    .btn-c-secondary:hover {
+        background-color: var(--cs-a-secondary-h) !important;
+    }
+
+#RenderShift {
+    border: 1px solid var(--cs-l-light-grey);
+    border-radius: 8px;
+}
+
+.btn-c-info-responsive {
+    width: auto;
+    color: var(--cs-l-white);
+    background-color: var(--cs-a-info);
+    border: none;
+    height: 40px !important;
+}
+
+    .btn-c-info-responsive:focus {
+        background-color: var(--cs-a-info-h);
+        color: var(--cs-l-white);
+        box-shadow: 0 0 0 0.25rem rgb(172 198 242 / 25%);
+    }
+
+    .btn-c-info-responsive:hover {
+        background-color: var(--cs-a-info-h);
+    }
+
+.editShift {
+    max-height: 21vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+

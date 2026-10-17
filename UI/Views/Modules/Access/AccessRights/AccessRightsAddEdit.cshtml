@@ -1,0 +1,36 @@
+﻿@{
+    //TODO: Modify below accordingly for Access Rights
+}
+@using BL.Models.Access
+@model AccessRightsDTO;
+
+<div id="AccessRightsAddEdit-Panel">
+    <div class="form-panel">
+
+        @*AR ID HIDDEN*@
+         <div class="form-floating d-none"><span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+         @*Role*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.RoleName, new { @class="form-control",@result="RoleName", @id = "RoleName", @type = "text", @placeholder = "Role Name" ,@required  = "required"})
+            <label class="">Role Name <span class="label-Required">*</span></label>
+        </div>
+    </div>
+
+    <hr />
+
+    @*Access Rights Table*@
+    <div class="mt-1 mx-5">
+        <table id="AccesRightsDataTable"></table>
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="naa-save-btn" title="Save" onclick="AccessRights.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+
+</div>

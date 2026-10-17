@@ -1,0 +1,122 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Model Used *@
+@using BL.Models.Store;
+@model StoreDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="Store-tab" data-bs-toggle="pill" data-bs-target="#details-Store" type="button" role="tab" aria-controls="details-Store" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="store-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-Store" role="tabpanel" aria-labelledby="Store-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-details" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                            <span class="span-medium"> General Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="details">
+                            @*Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Code", @readonly= true })
+                                <label>Code</label>
+                            </div>
+                            @*Name*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @result = "Name", @id = "Name", @type = "text", @placeholder = "Name" })
+                                <label class="label-required">Name</label>
+                            </div>
+                            @*Description*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @result = "Description", @id = "Description", @type = "text", @placeholder = "Description" })
+                                <label>Description</label>
+                            </div>
+                            @*Station*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.StationId, new { @id = "select-StationId-id" })
+                                <select class="form-select" id="select-StationId" name="StationId" result="StationId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-StationId" class="label-required">Station</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-details">
+                            <span class="span-medium">General Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="Store.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+     <button id="value-save-btn" title="Save" onclick="Store.save()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Store/Store/Store.js" type="module"></script>
+}

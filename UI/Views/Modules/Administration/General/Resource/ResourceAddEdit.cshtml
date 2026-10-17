@@ -1,0 +1,352 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Model Used *@
+@using BL.Models.Administration;
+@model ResourceCRUDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="StoreItem-tab" data-bs-toggle="pill" data-bs-target="#details-StoreItem" type="button" role="tab" aria-controls="details-StoreItem" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+
+<div class="tab-content " id="Resource-item-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-item" role="tabpanel" aria-labelledby="Resource-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="Resource-AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-details" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                            <span class="span-medium"> General Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="details">
+                            @*Resource Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Code", @readonly = "true" })
+                                <label class="label-floating">Code</label>
+                            </div>
+
+                          
+                            @*NAA Id*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.NAAId, new { @class = "form-control", @result = "NAAId", @id = "NAAId", @type = "number", @placeholder = "NAAId" })
+                            </div>
+
+                            @*NAA Code*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.NAACode, new { @class = "form-control", @result = "NAACode", @id = "NAACode", @type = "text", @placeholder = "NAACode" })
+                            </div>
+
+                            @*Resource NICPassport*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.NICPassport, new { @class = "form-control", @result = "NICPassport", @id = "NICPassport", @type = "text", @placeholder = "NIC/Passport", onfocusout = "GetNAABYNIC.getNaaByNic($(event.target))", @required = "required" })
+                                <label class="label-floating label-required">NIC/Passport</label>
+                            </div>
+
+                            @*Title*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Title, new { @id = "select-title-id" })
+                                <select class="form-select" id="select-title" name="Title" result="Title" required>
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-title" class="label-required"> Title </label>
+                            </div>
+
+                            @*Resource FirstName*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control", @result = "FirstName", @id = "FirstName", @type = "text", @placeholder = "First Name", @required = "required" })
+                                <label class="label-floating label-required">First Name</label>
+                            </div>
+
+                            @*Resource MiddleName*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.MiddleName, new { @class = "form-control", @result = "MiddleName", @id = "MiddleName", @type = "text", @placeholder = "Middle Name" })
+                                <label class="label-floating">Middle Name</label>
+                            </div>
+
+                            @*Resource LastName*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.LastName, new { @class = "form-control", @result = "LastName", @id = "LastName", @type = "text", @placeholder = "Surname", @required = "required" })
+                                <label class="label-floating label-required">Surname</label>
+                            </div>
+
+                            @*Resource DOB*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.DOB, "{0:yyyy-MM-dd}", new { @class = "form-control", @result = "DOB", @id = "DOB", @type = "date", @placeholder = "DOB" })
+                                <label>DOB</label>
+                            </div>
+
+                            @*Resource user*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.UserId, new { @id = "select-user-id" })
+                                <select class="form-select" id="select-user" name="UserId" result="UserId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-user"> User </label>
+                            </div>
+
+                            @*Resource Gender*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Gender, new { @id = "select-gender-id" })
+                                <select class="form-select" id="select-gender" name="Gender" result="Gender">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-gender"> Gender </label>
+                            </div>
+                            @*Resource Type*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.ResourceType, new { @id = "select-resourceType-id" })
+                                <select class="form-select" id="select-resourceType" name="ResourceType" result="ResourceType" required>
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-resourceType" class="label-required"> Resource Category </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-Contact-Information" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#Contact-Information" aria-expanded="true">
+                            <span class="span-medium"> Resource Contact Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="Contact-Information">
+
+                            @*Resource TelNo*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.TelNo, new { @class = "form-control", @result = "TelNo", @id = "TelNo", @type = "text", @placeholder = "Telephone No" })
+                                <label class="label-floating ">Telephone No</label>
+                            </div>
+
+                            @*Resource MobileNo*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control", @result = "MobileNo", @id = "MobileNo", @type = "text", @placeholder = "Mobile No", @required = "required" })
+                                <label class="label-floating label-required">Mobile No</label>
+                            </div>
+
+                            @*Resource Email*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @result = "Email", @id = "Email", @type = "text", @placeholder = "Email" })
+                                <label class="label-floating ">Email</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-Address-Information" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#Address-Information" aria-expanded="true">
+                            <span class="span-medium"> Resource Address Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="Address-Information">
+
+                            @*Resource Address*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Address, new { @class = "form-control", @result = "Address", @id = "Address", @type = "text", @placeholder = "Address" })
+                                <label class="label-floating ">Address</label>
+                            </div>
+
+                            @*Resource Street*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Street, new { @class = "form-control", @result = "Street", @id = "Street", @type = "text", @placeholder = "Street" })
+                                <label class="label-floating ">Street</label>
+                            </div>
+
+                            @*Resource Locality*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Locality, new { @class = "form-control", @result = "Locality", @id = "Locality", @type = "text", @placeholder = "Locality" })
+                                <label class="label-floating ">Locality</label>
+                            </div>
+
+                            @*Resource VillageTown*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.VillageTown, new { @class = "form-control", @result = "VillageTown", @id = "VillageTown", @type = "text", @placeholder = "Village/Town" })
+                                <label class="label-floating ">Village/Town</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-Work-Information" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#Work-Information" aria-expanded="true">
+                            <span class="span-medium"> Resource Work Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="Work-Information">
+
+                            @*Resource Rank*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Rank, new { @id = "select-Rank-id" })
+                                <select class="form-select" id="select-Rank" name="Rank" result="Rank" required>
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Rank" class="label-required"> Rank </label>
+                            </div>
+
+                            @*Resource Date joined MFRS*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.DatejoinedMFRS, "{0:yyyy-MM-dd}", new { @class = "form-control", @result = "DatejoinedMFRS", @id = "DatejoinedMFRS", @type = "date", @placeholder = "Date joined MFRS", @required = "required" })
+                                <label class="label-floating label-required">Date joined MFRS</label>
+                            </div>
+
+                            @*Resource PFNumber*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.PFNumber, new { @class = "form-control", @result = "PFNumber", @id = "PFNumber", @type = "text", @placeholder = "PFNumber", @required = "required" })
+                                <label class="label-floating label-required">PF Number</label>
+                            </div>
+
+                            @*Resource Rank*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.StationUnitName, new { @id = "select-StationUnitName-id" })
+                                <select class="form-select" id="select-StationUnitName" name="StationUnitName" result="StationUnitName" required>
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-StationUnitName" class="label-required"> Station/Unit Name </label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-License-Information" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#License-Information" aria-expanded="true">
+                            <span class="span-medium"> Resource License Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="License-Information">
+
+                            @*Resource Private License Number*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.PrivateLicenseNumber, new { @class = "form-control", @result = "PrivateLicenseNumber", @id = "PrivateLicenseNumber", @type = "text", @placeholder = "Private License Number" })
+                                <label class="label-floating">Private License Number</label>
+                            </div>
+
+                            @*Resource Private License Driver CategoryId*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.PrivateLicenseDriverCategoryId, new { @id = "select-PrivateLicenseDriverCategory-id" })
+                                <select class="form-select" id="select-PrivateLicenseDriverCategory" name="PrivateLicenseDriverCategory" result="PrivateLicenseDriverCategory">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-PrivateLicenseDriverCategoryId"> Private License Driver Category</label>
+                            </div>
+
+
+                            @*Resource Private License Issue Date*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.PrivateLicenseIssueDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @result = "PrivateLicenseIssueDate", @id = "PrivateLicenseIssueDate", @type = "date", @placeholder = "Private License Issue Date" })
+                                <label class="label-floating">Private License Issue Date</label>
+                            </div>
+
+                            @*Resource Private License ExpiryDate*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.PrivateLicenseExpiryDate, "{0:yyyy-MM-dd}", new { @class = "form-control", @result = "PrivateLicenseExpiryDate", @id = "PrivateLicenseExpiryDate", @type = "date", @placeholder = "Private License Expiry Date" })
+                                <label class="label-floating">Private License ExpiryDate</label>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-details">
+                            <span class="span-medium">General Details</span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-Contact-Information">
+                            <span class="span-medium">Contact Info</span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-Address-Information">
+                            <span class="span-medium">Address Info</span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-Work-Information">
+                            <span class="span-medium">Work Info</span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-License-Information">
+                            <span class="span-medium">License Info</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="ResourceAddEdit.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-save-btn" title="Save" onclick="ResourceAddEdit.saveUpdate()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@*References*@
+@section Scripts {
+    <script src="~/Scripts/Modules/Administration/General/Resource/ResourceAddEdit.js" type="module"></script>
+    <script src="~/Scripts/Modules/Administration/Common/GetNAAByNIC.js" type="module"></script>
+}

@@ -1,0 +1,39 @@
+﻿@using BL.Models.Form;
+@model FormTypeDTO;
+
+<div id="FormType-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Form Type Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "number", @placeholder = "Id"})
+        </div>
+
+        @*Form Type Code*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "code", @type = "text", @placeholder = "Code", @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Form Type Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Name</label>
+        </div>
+
+        @*Form Type Description*@
+        <div class="form-floating short-input">
+            @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "description", @type = "text", @placeholder = "Description" })
+            <label class="label-textarea-floating">Description</label>
+        </div>
+
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="FormTypeAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

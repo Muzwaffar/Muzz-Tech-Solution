@@ -1,0 +1,41 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+    ViewData["Title"] = @ViewBag.Name;// "Schedule";
+}
+
+@*References Styles*@
+@section CSS{
+    <link rel="stylesheet" href="~/css/Modules/Schedule/schedule.css" asp-append-version="true" />
+}
+
+
+@*Main Container*@
+<div id="">
+    @*Breadcrumb*@
+    <div class="d-flex mb-4">
+        <i class="fa fa-calendar-check breadcrum-icon"></i>
+        <h3 class="m-0 p-0"> @ViewBag.Name</h3>
+    </div>
+
+    @*Calendar*@
+    <div id="calendar"></div>
+
+</div>
+
+@*Partial View*@
+    <div id="partialSchedule" class="overlayCalendar">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-calendar-check me-2"></i>@ViewBag.Name</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</div>
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Schedule/ScheduleCalendar/ScheduleCalendar.js" type="module"></script>
+    <script src="~/Scripts/Modules/Schedule/ScheduleCalendar/ScheduleCalendarPopup.js" type="module"></script>
+}

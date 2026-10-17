@@ -1,0 +1,216 @@
+﻿@{
+    ViewData["Title"] = "Template";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@using BL.Models.Template;
+@model TemplateDTO;
+
+<div id="">
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"> Design Guide </span>
+            <a href="#" role="button"aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+                
+            </div>
+           
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+</div>
+
+
+@*Main Container*@
+<div class="row content-scrollspy">
+    <div class="col-10 content-form">
+        <div id="Template-AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+
+            <div id="scrollspy-project" class="scrollspy-transition">
+                <div class="section" data-bs-toggle="collapse" href="#project" aria-expanded="true">
+                    <span class="span-medium"> Project </span>
+                    <span class="collapsible-icon"></span>
+                </div>
+                <div class="collapse form-panel show" id="project">
+
+                    @*Input Text*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sInput, new { @class="form-control",@result="sInput", @id = "sInput", @type = "text", @placeholder = "Text Input"})
+                        <label>Text Input</label>
+                    </div>
+
+                    @*Multiline*@
+                    <div class="form-floating ">
+                        @Html.TextAreaFor(m => m.sMultiline, new { @class="form-control",@result="sMultiline", @id = "sMultiline",@placeholder = "Multiline Text"})
+                        <label class="">Multiline Text</label>
+                    </div>
+
+                    @*Single Dropdown*@
+                    <div class="form-floating">
+                        @Html.HiddenFor(m => m.sDropdown, new {@id = "select-dropdown-id"})
+                        <select class="form-select" id="select-dropdown" name="dropdown" result="sDropdown">
+                            <option value=""></option>
+                        </select>
+                        <label for="select-dropdown">Single Dropdown</label>
+                    </div>
+
+                    @*Input Number*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sNumber, new { @class="form-control",@result="sNumber", @id = "sNumber", @type = "number", @placeholder = "Number Input"})
+                        <label>Number Input</label>
+                    </div>
+
+                    @*Input Date*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sDate, new { @class="form-control",@result="sDate", @id = "sDate", @type = "date", @placeholder = "Date Input"})
+                        <label>Date Input</label>
+                    </div>
+
+                    @*Input Time*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sTime, new { @class="form-control",@result="sTime", @id = "sTime", @type = "time", @placeholder = "Time Input"})
+                        <label>Time Input</label>
+                    </div>
+
+                    @*Input DateTime*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sDatetime, new { @class="form-control",@result="sDatetime", @id = "sDatetime", @type = "datetime-local", @placeholder = "DateTime Input"})
+                        <label>DateTime Input</label>
+                    </div>
+
+                    @*CheckBox*@
+                    <div class="form-floating">
+                        @Html.CheckBoxFor(m => m.sCheckbox, new { @class="form-control",@result="sCheckbox", @id = "sCheckbox", @type = "checkbox", @placeholder = "CheckBox"})
+                        <label class="label-checkbox">CheckBox</label>
+                    </div>
+
+                    @*radio*@
+                    <div class="form-floating form-control-radio">
+                        <label class="radio-label">Radio Label</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                Default radio
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Default checked radio
+                            </label>
+                        </div>
+                    </div>
+
+                    @*multiselect*@
+                    <div class="form-floating">
+                        <select id="select-multiselect" multiple="multiple" name="multiselect">
+                        </select>
+                        <label class="label-multiselect">Multiselect Label</label>
+                    </div>
+
+                    <div class="d-flex w-100">
+                        @*Station*@
+                        <div class="form-floating">
+                            <select class="form-select" id="select-dropdown-addnew" name="dropdown-addnew">
+                                <option value=""></option>
+                            </select>
+                            <label for="select-dropdown-addnew">Dropdown</label>
+                        </div>
+                        @* Refresh Sign *@
+                        <div class="align-items-end d-flex m-3 naveo-color">
+                            <a onclick="Template.refresh($(event.target))"><i class="fa-solid fa-arrows-rotate fa-16"></i></a>
+                        </div>
+                        @* Add Sign *@
+                        <div class="align-items-end d-flex my-3 naveo-color">
+                            <a href="/LookUpValue/List" target="_blank" id="a_add_select-dropdown-addnew"><i class="fa fa-16 fa-plus"></i></a>
+                        </div>
+                        
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="scrollspy-trial" class="scrollspy-transition">
+                <div class="section" data-bs-toggle="collapse" href="#trial" aria-expanded="true">
+                    <span class="span-medium"> Trial </span>
+                    <span class="collapsible-icon"></span>
+                </div>
+                <div class="collapse form-panel show" id="trial">
+
+                    @*Input Text*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sInput, new { @class="form-control",@result="sInput", @id = "sInput", @type = "text", @placeholder = "Text Input"})
+                        <label>Text Input</label>
+                    </div>
+
+                    @*Multiline*@
+                    <div class="form-floating ">
+                        @Html.TextAreaFor(m => m.sMultiline, new { @class="form-control",@result="sMultiline", @id = "sMultiline",@placeholder = "Multiline Text" })
+                        <label class="label-textarea-floating">Multiline Text</label>
+                    </div>
+
+                    @*Input Number*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sNumber, new { @class="form-control",@result="sNumber", @id = "sNumber", @type = "number", @placeholder = "Number Input"})
+                        <label>Number Input</label>
+                    </div>
+
+                    @*Input Date*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sDate, new { @class="form-control",@result="sDate", @id = "sDate", @type = "date", @placeholder = "Date Input"})
+                        <label>Date Input</label>
+                    </div>
+
+                    @*Input Time*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sTime, new { @class="form-control",@result="sTime", @id = "sTime", @type = "time", @placeholder = "Time Input"})
+                        <label>Time Input</label>
+                    </div>
+
+                    @*Input DateTime*@
+                    <div class="form-floating">
+                        @Html.TextBoxFor(m => m.sDatetime, new { @class="form-control",@result="sDatetime", @id = "sDatetime", @type = "datetime-local", @placeholder = "DateTime Input"})
+                        <label>DateTime Input</label>
+                    </div>
+
+                    @*CheckBox*@
+                    <div class="form-floating">
+                        @Html.CheckBoxFor(m => m.sCheckbox, new { @class="form-control",@result="sCheckbox", @id = "sCheckbox", @type = "checkbox", @placeholder = "CheckBox"})
+                        <label class="label-checkbox">CheckBox</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu">
+        <span class="naveo-color m-3"> Sections</span>
+        <div class="scrollspy-content">
+            <div class="m-3">
+                <a href="#scrollspy-project">
+                    <span class="span-medium">Project</span>
+                </a>
+            </div>
+            <div class="m-3">
+                <a href="#scrollspy-trial">
+                    <span class="span-medium">Trial</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="Template.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-update-btn" title="Update" onclick="Template.error()" class="form-control btn-c-secondary me-3"><i class="fa fa-close me-2"></i>Show Error</button>
+    <button id="value-cancel-btn" title="Cancel" onclick="Template.cancel()" class="form-control btn-c-info me-3"><i class="fa fa-save me-2"></i>Cancel</button>
+    <button id="value-save-btn" title="Save" onclick="Template.save()" class="form-control btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+
+@section Scripts{
+    <script src="~/Scripts/Template/Template.js" type="module"></script>
+}

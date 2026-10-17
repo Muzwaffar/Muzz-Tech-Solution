@@ -1,0 +1,265 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@using BL.Models.Administration;
+@model PDADTO;
+
+
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="Roster-tab" data-bs-toggle="pill" data-bs-target="#details-Roster" type="button" role="tab" aria-controls="details-Roster" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+
+    @*Main Container Start*@
+    @*IMPORTANT : id to retrieve data to send to api  *@
+    <div class="tab-content " id="roster-control">
+        @*Main Container scrollspy : Project Info*@
+        <div class="tab-pane fade show active" id="details-Roster" role="tabpanel" aria-labelledby="Roster-tab">
+            @*scrollspy*@
+            <div class="row content-scrollspy">
+                @*scrollspy content*@
+                <div class="col-10 content-form">
+                    <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    <div id="PDA-AddEdit-Panel">
+                        @*scrollspy sub section*@
+                        <div id="scrollspy-details" class="scrollspy-transition">
+                            @*sub section Header*@
+                            <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                                <span class="span-medium"> General Details </span>
+                                <span class="collapsible-icon"></span>
+                            </div>
+                            @*sub section Content*@
+                            <div class="collapse form-panel show" id="details">
+                                @*PDA Id HIDDEN*@
+                                <div class="form-floating short-input d-none">
+                                    <span></span>
+                                    @Html.TextBoxFor(m => m.Id, new { @class = "form-control input-floating", @result = "Id", @id = "Id", @type = "number", @placeholder = "Id" })
+                                </div>
+
+                                @*PDA Code*@
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Roster Code", @readonly = "true" })
+                                    <label class="label-floating">Code</label>
+                                </div>
+
+
+                                @*Station Type*@
+                                <div class="form-floating" id="StationType">
+                                    @Html.HiddenFor(m => m.StationTypeId, new { @id = "select-station-id" })
+                                    <select id="select-station" class="form-select" name="StationType" Result="StationTypeId">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="label-required">Station Type</label>
+                                </div>
+
+                                @*Nature Of Incident*@
+                                <div class="form-floating" id="NatureOfIncidentId">
+                                    @Html.HiddenFor(m => m.NatureOfIncidentId, new { @id = "select-incident-id" })
+                                    <select id="select-incident" class="form-select" name="NatureOfIncidentId"  Result="NatureOfIncidentId">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="label-required">Nature Of Incident</label>
+                                </div>
+
+                                @*Incident Type*@
+                                <div class="form-floating" id="IncidentTypeId">
+                                    @Html.HiddenFor(m => m.IncidentTypeId, new { @id = "select-incident-type-id" })
+                                    <select id="select-incident-type" class="form-select" name="IncidentTypeId"  Result="IncidentTypeId">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="label-required">Incident Type</label>
+                                </div>
+                            </div>
+                          </div>
+                       
+                               
+
+                        </div>
+                     
+                        <div id="scrollspy-Vehicle" class="scrollspy-transition">
+                            <div class="section" data-bs-toggle="collapse" href="#vehicleDetails" aria-expanded="true">
+                                <span class="span-medium"> Vehicle Details </span>
+                                <span class="collapsible-icon"></span>
+                            </div>
+                           <div class="collapse show" id="vehicleDetails">
+                                
+                               
+                               <div class="m-auto w-40">
+                                    @*Resource*@
+                                    <div class="form-floating" id="vehicleCat">
+                                        <select id="select-vehicle" class="form-select" name="VehicleCat" Relation="VehicleType">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="">Vehicle Category</label>
+                                    </div>
+
+                                    <div class="form-floating short-input">
+                                        <input type="number" class="form-control input-floating" placeholder="Quantity" id="vehQty">
+                                        <label class="label-floating">Quantity</label>
+                                    </div>
+                               
+                                    <div class="align-self-center ms-3 mt-3">
+                                    <button id="relation-add-btn" title="Add" onclick="PDAAddEdit.addRelationVeh()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add</button>
+                                    </div>
+                                     <div class="m-3"></div>
+                                    @*Relation Table :Team - Relationship*@
+                                    <table id="vehicle-Resource-R-Table" class="relation-table"></table>
+                              </div>
+                            </div>
+
+                        </div>
+                        <div id="scrollspy-Equipment" class="scrollspy-transition">
+                            <div class="section" data-bs-toggle="collapse" href="#EquipmentDetails" aria-expanded="true">
+                                <span class="span-medium"> Equipment Details </span>
+                                <span class="collapsible-icon"></span>
+                            </div>
+                            <div class="collapse show" id="EquipmentDetails">
+
+
+                                <div class="m-auto w-40">
+                                    @*Resource*@
+                                    <div class="form-floating" id="vehicleCat">
+                                        <select id="select-equipment" class="form-select" name="EquipmentCat" Relation="EquipmentType">
+                                            <option value=""></option>
+                                        </select>
+                                        <label class="">Equipment Category</label>
+                                    </div>
+
+                                    <div class="form-floating short-input">
+                                    <input type="number" class="form-control input-floating" placeholder="Quantity" id="equipQty">
+                                        <label class="label-floating">Quantity</label>
+                                    </div>
+
+                                    <div class="align-self-center ms-3 mt-3">
+                                    <button id="relation-add-btn" title="Add" onclick="PDAAddEdit.addRelationEquip()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add</button>
+                                    </div>
+                                    <div class="m-3"></div>
+                                    @*Relation Table :Team - Relationship*@
+                                    <table id="equipment-Resource-R-Table" class="relation-table"></table>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    <div id="scrollspy-Resource" class="scrollspy-transition">
+                        <div class="section" data-bs-toggle="collapse" href="#ResourceDetails" aria-expanded="true">
+                            <span class="span-medium"> Resource Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        <div class="collapse show" id="ResourceDetails">
+
+
+                            <div class="m-auto w-40">
+                                @*Resource*@
+                                <div class="form-floating" id="resourceCat">
+                                    <select id="select-resource" class="form-select" name="ResourceType" Relation="Resource">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="">Rank</label>
+                                </div>
+
+                                <div class="form-floating short-input">
+                                    <input type="number" class="form-control input-floating" placeholder="Quantity" id="rankQty">
+                                    <label class="label-floating">Quantity</label>
+                                </div>
+
+                                <div class="align-self-center ms-3 mt-3">
+                                    <button id="relation-add-btn" title="Add" onclick="PDAAddEdit.addRelationRank()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add</button>
+                                </div>
+                                <div class="m-3"></div>
+                                @*Relation Table :Team - Relationship*@
+                                <table id="resource-Resource-R-Table" class="relation-table"></table>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+                        
+                    </div>
+                </div>
+                @*scrollspy action*@
+                <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                    @*scrollspy action : Header*@
+                    <span class="naveo-color m-3"> Sections</span>
+                    @*scrollspy actions content*@
+                    <div class="scrollspy-content">
+                        @*scrollspy actions item*@
+                        <div class="m-3">
+                            <a href="#scrollspy-details">
+                                <span class="span-medium">General Details</span>
+                            </a>
+                        </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-Vehicle">
+                            <span class="span-medium"> Vehicle Details </span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-Equipment">
+                            <span class="span-medium">Equipment Details</span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-Resource">
+                            <span class="span-medium">Resource Details</span>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*Main Container End*@
+
+    @*Save Action*@
+   @*  <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="roster-save-btn" title="Save" onclick="RosterAddEdit.saveUpdateRoster()" class="form-control btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div> *@
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="PDAAddEdit.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-save-btn" title="Save" onclick="PDAAddEdit.saveUpdate()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Modules/Administration/General/PDA/PDAAddEdit.js" type="module"></script>
+}

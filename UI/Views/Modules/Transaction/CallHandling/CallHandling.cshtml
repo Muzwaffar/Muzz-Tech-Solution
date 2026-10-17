@@ -1,0 +1,835 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Model Used *@
+@using BL.Models.Transaction;
+@model IncidentHandlingDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="Store-tab" data-bs-toggle="pill" data-bs-target="#details-Store" type="button" role="tab" aria-controls="details-Store" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            Incident Information
+                        </span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="store-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-Store" role="tabpanel" aria-labelledby="Store-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section - INCIDENT INFORMATION*@
+                    <div id="scrollspy-incident-info" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#incident-info" aria-expanded="true">
+                            <span class="span-medium"> Incident Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="incident-info">
+                            @*Id*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Incident.Id, new { @class = "form-control d-none", @Incident = "Id", @id = "Id", @type = "number", @placeholder = "Id", @readonly = true })
+                            </div>
+                            @*Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Incident.Code, new { @class = "form-control d-none", @Incident = "Code", @id = "Code", @type = "text", @placeholder = "Code", @readonly = true })
+                            </div>
+                            @*incident Number*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Incident.IncidentNo, new { @class = "form-control", @Incident = "IncidentNo", @id = "IncidentNo", @type = "text", @placeholder = "IncidentNo", @readonly = true, @value = "" })
+                                <label>Incident No.</label>
+                            </div>
+                            @*incident  Type*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Incident.IncidentType, new { @id = "select-IncidentType-id" })
+                                <select class="form-select" id="select-IncidentType" name="IncidentType" Incident="IncidentType" onchange="CallHandling.updateValue($(event.target), 'incident-info', 'Incident')">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-IncidentType" class="label-required">Incident Type</label>
+                            </div>
+                            @*initial incident type*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Incident.InitialIncidentType, new { @class = "form-control", @Incident = "InitialIncidentType", @id = "InitialIncidentType", @type = "text", @placeholder = "InitialIncidentType",@onchange = "CallHandling.updateValue($(event.target), 'incident-info', 'Incident')" })
+                                <label class="label-required">Initial Incident Type</label>
+                            </div>
+                            @*incident Sub Type*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.SelectedIncidentSubType, new { @id = "SelectedIncidentSubType" })
+                                @Html.HiddenFor(m => m.Incident.IncidentSubType, new { @id = "select-IncidentSubType-id" })
+                                <select class="form-select" id="select-IncidentSubType" name="IncidentSubType" Incident="IncidentSubType" onchange="CallHandling.updateValue($(event.target), 'incident-info', 'Incident')">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-IncidentSubType">Incident Sub type</label>
+                            </div>
+                            @*incident Code*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.SelectedIncidentCode, new { @id = "SelectedIncidentCode" })
+                                @Html.HiddenFor(m => m.Incident.IncidentCode, new { @id = "select-IncidentCode-id" })
+                                <select class="form-select" id="select-IncidentCode" name="IncidentCode" Incident="IncidentCode" onchange="CallHandling.updateValue($(event.target), 'incident-info', 'Incident')">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-IncidentCode">Incident Code</label>
+                            </div>
+                            @*parent incident*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Incident.ParentIncidentId, new { @id = "select-ParentIncidentId-id" })
+                                <select class="form-select" id="select-ParentIncidentId" name="ParentIncidentId" Incident="ParentIncidentId" onchange="CallHandling.updateValue($(event.target), 'incident-info', 'Incident')">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-ParentIncidentId">Parent Incident</label>
+                            </div>
+                            @*incident remarks*@
+                            <div class="form-floating">
+                                @Html.TextAreaFor(m => m.Incident.IncidentRemarks, new { @class = "form-control", @Incident = "IncidentRemarks", @id = "IncidentRemarks", @type = "text", @placeholder = "IncidentRemarks", @onfocusout = "CallHandling.updateValue($(event.target), 'incident-info', 'Incident')" })
+                                <label class="label-floating">Incident Remarks</label>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - LOCATION OF INCIDENT*@
+                    <div id="scrollspy-location" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#location" aria-expanded="false">
+                            <span class="span-medium"> Location Of Incident </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="location">
+                            @*Id*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.IncidentLocation.Id, new { @id = "LocationId", @IncidentLocation = "Id" })
+                            </div>
+                            @*Address*@
+                            <div class="form-floating">
+                                @Html.TextAreaFor(m => m.IncidentLocation.Address, new { @class = "form-control", @IncidentLocation = "Address", @id = "Address", @type = "text", @placeholder = "Address", @onchange = "CallHandling.updateValue($(event.target), 'location', 'IncidentLocation', 'LocationId')" })
+                                <label class="label-floating">Full Address</label>
+                            </div>
+                            @*Street*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentLocation.Street, new { @class = "form-control", @IncidentLocation = "Street", @id = "Street", @type = "text", @placeholder = "Street", @readonly = true })
+                                <label>Street</label>
+                            </div>
+                            @*Locality*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentLocation.Locality, new { @class = "form-control", @IncidentLocation = "Locality", @id = "Locality", @type = "text", @placeholder = "Locality", @readonly = true })
+                                <label>Village/Town</label>
+                            </div>
+                            @*District*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentLocation.District, new { @class = "form-control", @IncidentLocation = "District", @id = "District", @type = "text", @placeholder = "District", @readonly = true })
+                                <label>District</label>
+                            </div>
+                            @*LandMark*@
+                            <div class="form-floating">
+                                @Html.TextAreaFor(m => m.IncidentLocation.LandMark, new { @class = "form-control", @IncidentLocation = "LandMark", @id = "LandMark", @type = "text", @placeholder = "LandMark", @onchange = "CallHandling.updateValue($(event.target), 'location', 'IncidentLocation', 'LocationId')" })
+                                <label class="label-floating">Landmark</label>
+                            </div>
+                            @*Map*@
+                            @Html.TextBoxFor(m => m.IncidentLocation.GeomDataText, new { @id = "GeomDataText", @class = "d-none", @IncidentLocation = "GeomDataText" })
+                            @Html.TextBoxFor(m => m.IncidentLocation.Type, new { @id = "Type", @class = "d-none", @IncidentLocation = "Type" })
+                            @Html.TextBoxFor(m => m.IncidentLocation.Latitude, new { @id = "Latitude", @class = "d-none", @IncidentLocation = "Latitude", @Value = "0.0" })
+                            @Html.TextBoxFor(m => m.IncidentLocation.Longitude, new { @id = "Longitude", @class = "d-none", @IncidentLocation = "Longitude", @Value = "0.0" })
+                            <div class="w-100 my-4" id="map-container-callhandling">
+                                <div id="map"></div>
+                                <button id="enlarge-map-btn" title="Enlarge Map" onclick="CallHandling.enlargeMinimizeMap()" class="form-control btn-custom-enlarge-map"><i class="fa fa-magnifying-glass me-2"></i><span id="enlarge-minimize">Enlarge Map</span></button>
+
+                            </div>
+
+                        </div>
+                    </div>
+                    @*scrollspy sub section - CALLER INFORMATION*@
+                    <div id="scrollspy-caller" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#caller" aria-expanded="false">
+                            <span class="span-medium"> Caller Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="caller">
+                            @*CallerId*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.IncidentCaller.Id, new { @class = "form-control d-none", @id = "IncidentCallerId", @type = "number", @placeholder = "IncidentCallerId" })
+                            </div>
+                            @*CallerId*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentCaller.CallerId, new { @class = "form-control d-none", @result = "Id", @id = "CallerId", @type = "number", @placeholder = "CallerId" })
+                            </div>
+                            @*Contact Number*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CallerContact" result="MobileNo" placeholder="Caller Contact" type="number" oninput="this.value = this.value.slice(0, 15)" />
+                                <label>Contact number</label>
+                            </div>
+                            @*First Name*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CallerFirstName" result="FirstName" placeholder="First Name" type="text" />
+                                <label>First Name</label>
+                            </div>
+                            @*last Name*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CallerLastName" result="LastName" placeholder="Surname" type="text" />
+                                <label>Surname</label>
+                            </div>
+                            @*Address*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="CallerAddress" result="Address" placeholder="Address"></textarea>
+                                <label class="label-floating">Address</label>
+                            </div>
+                            @*Street*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CallerStreet" result="Street" placeholder="Street" type="text" />
+                                <label>Street</label>
+                            </div>
+                            @*Locality*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-caller-Locality" name="CallerLocality" result="LocalityId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-caller-Locality">Village/Town</label>
+                            </div>
+                            @*District*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-caller-District" name="CallerDistrict" result="DistrictId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-caller-District">District</label>
+                            </div>
+                            @*Remarks*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="CallerRemarks" result="Remarks" placeholder="Remarks"></textarea>
+                                <label class="label-floating">Remarks</label>
+                            </div>
+                            @*Nuisance*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CallerNuisance" result="IsNuisance" placeholder="Nuisance" type="checkbox" />
+                                <label class="label-checkbox">Nuisance</label>
+                            </div>
+                            @*Save*@
+                            <button id="caller-add-btn" title="Add" onclick="CallHandling.saveCallerInformation()" class="btn-c-primary form-control mt-4 w-100 d-none"><i class="fa fa-plus me-2"></i>Save Caller Info</button>
+                            @*Caller Transaction Table*@
+                            <div class="w-100 my-4">
+                                <span>Last 5 Transaction</span>
+                                <table id="CallerTransactionTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - FIRE STATION*@
+                    <div id="scrollspy-station" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#station" aria-expanded="false">
+                            <span class="span-medium"> Fire Station Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="station">
+                            @*Station Id*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.IncidentStation.Id, new { @id = "MainStationId", @IncidentStation = "Id" })
+                            </div>
+                            @*Station Name*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.IncidentStation.StationId, new { @id = "select-StationId-id" })
+                                <select class="form-select" id="select-StationId" name="StationId" IncidentStation="StationId" onchange="CallHandling.updateValue($(event.target), 'station', 'IncidentStation', 'MainStationId')">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-StationId" class="label-required">Station Name</label>
+                            </div>
+                            @*Nature Of Incident*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.IncidentStation.NatureOfIncidentId, new { @id = "select-NatureOfIncidentId-id" })
+                                <select class="form-select" id="select-NatureOfIncidentId" name="NatureOfIncidentId" IncidentStation="NatureOfIncidentId" onchange="CallHandling.updateValue($(event.target), 'station', 'IncidentStation', 'MainStationId')">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-NatureOfIncidentId" class="label-required">Nature Of Incident</label>
+                            </div>
+                            @*Station Table*@
+                            <div class="w-100 my-4">
+                                <span>Other Stations</span>
+                                <table id="StationTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - VEHICLE INFORMATION*@
+                    <div id="scrollspy-vehicle" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#vehicle" aria-expanded="false">
+                            <span class="span-medium"> Vehicle Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="vehicle">
+                            <span id="vehicle-PDA" class="f-weight-bold naveo-color span-small w-100"></span>
+                            @*Station Name*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-vehicle-StationId" name="vehicle-StationId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-vehicle-StationId">Station Name</label>
+                            </div>
+                            @*Vehicle Category*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-vehicle-Category" name="vehicle-Category">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-vehicle-Category">Vehicle Category</label>
+                            </div>
+                            @*Vehicle*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-vehicle" name="vehicle">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-vehicle">Vehicle</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="vehicle-add-btn" title="Add" onclick="CallHandling.addVehicleToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Vehicle To Table</button>
+                            @*Vehicle Table*@
+                            <div class="w-100 my-4">
+                                <table id="VehicleTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - EQUIPMENT INFORMATION*@
+                    <div id="scrollspy-equipment" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#equipment" aria-expanded="false">
+                            <span class="span-medium"> Equipment Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="equipment">
+                            <span id="equipment-PDA" class="f-weight-bold naveo-color span-small w-100"></span>
+                            @*Station Name*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-equipment-StationId" name="equipment-StationId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-equipment-StationId">Station Name</label>
+                            </div>
+                            @*Equipment Category*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-equipment-Category" name="equipment-Category">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-equipment-Category">Equipment Category</label>
+                            </div>
+                            @*Equipment*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-equipment" name="equipment">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-equipment">Equipment</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="equipment-add-btn" title="Add" onclick="CallHandling.addEquipmentToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Equipment To Table</button>
+                            @*Equipment Table*@
+                            <div class="w-100 my-4">
+                                <table id="EquipmentTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - RESOURCE INFORMATION*@
+                    <div id="scrollspy-resource" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#resource" aria-expanded="false">
+                            <span class="span-medium"> Resource Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="resource">
+                            <span id="resource-PDA" class="f-weight-bold naveo-color span-small w-100"></span>
+                            @*Station Name*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-resource-StationId" name="resource-StationId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-resource-StationId">Station Name</label>
+                            </div>
+                            @*Resource Category*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-resource-Category" name="resource-Category">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-resource-Category">Resource Category</label>
+                            </div>
+                            @*Resource Rank*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-resource-Rank" name="resource-Rank">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-resource-Rank">Resource Rank</label>
+                            </div>
+                            @*Resource*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-resource" name="resource">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-resource">Resource</label>
+                            </div>
+                            @*Crew Commander*@
+                            <div class="form-floating">
+                                <input class="form-control" id="ResourceCrewCommander" placeholder="ResourceCrewCommander" type="checkbox" />
+                                <label class="label-checkbox">Is Crew Commander?</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="resource-add-btn" title="Add" onclick="CallHandling.addResourceToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Resource To Table</button>
+                            @*Resource Table*@
+                            <div class="w-100 my-4">
+                                <table id="ResourceTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - EXTERNAL AGENCY INFORMATION*@
+                    <div id="scrollspy-external" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#external" aria-expanded="false">
+                            <span class="span-medium"> External Agency </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="external">
+                            @*External Agencies*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-external-agency" name="ExternalAgency">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-external-agency">External Agency</label>
+                            </div>
+                            @*Remarks*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="ExternalRemarks" placeholder="Remarks"></textarea>
+                                <label class="label-floating">Remarks</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="external-add-btn" title="Add" onclick="CallHandling.addExternalToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add External To Table</button>
+                            @*External Agency Table*@
+                            <div class="w-100 my-4">
+                                <table id="ExternalAgencyTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - CASUALTY INFORMATION*@
+                    <div id="scrollspy-casualty" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#casualty" aria-expanded="false">
+                            <span class="span-medium"> Casualty Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="casualty">
+                            @*Casualty Id*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.IncidentCasualty.Id, new { @id = "CasualtiesId", @IncidentCasualty = "Id" })
+                            </div>
+                            @*Total Casulties*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentCasualty.TotalCasualties, new { @class = "form-control", @IncidentCasualty = "TotalCasualties", @id = "TotalCasualties", @type = "number", @placeholder = "TotalCasualties", @onchange = "CallHandling.updateValue($(event.target), 'casualty', 'IncidentCasualty', 'CasualtiesId')" })
+                                <label>Total No. Of Casulties</label>
+                            </div>
+                            @*Total Rescued*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentCasualty.TotalRescued, new { @class = "form-control", @IncidentCasualty = "TotalRescued", @id = "TotalRescued", @type = "number", @placeholder = "TotalRescued", @onchange = "CallHandling.updateValue($(event.target), 'casualty', 'IncidentCasualty', 'CasualtiesId')" })
+                                <label>Total No. Rescued</label>
+                            </div>
+                            @*Total Evacuated*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentCasualty.TotalEvacuated, new { @class = "form-control", @IncidentCasualty = "TotalEvacuated", @id = "TotalEvacuated", @type = "number", @placeholder = "TotalEvacuated", @onchange = "CallHandling.updateValue($(event.target), 'casualty', 'IncidentCasualty', 'CasualtiesId')" })
+                                <label>Total No. Evacuated</label>
+                            </div>
+                            @*Remarks*@
+                            <div class="form-floating">
+                                @Html.TextAreaFor(m => m.IncidentCasualty.Remarks, new { @class = "form-control", @IncidentCasualty = "Remarks", @id = "IncidentCasualtyRemarks", @type = "text", @placeholder = "IncidentCasualtyRemarks", @onchange = "CallHandling.updateValue($(event.target), 'casualty', 'IncidentCasualty', 'CasualtiesId')" })
+                                <label class="label-floating">Remarks</label>
+                            </div>
+                            <hr />
+                            @*Casualty Type*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-casualty-Type" name="CasualtyType">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-casualty-Type" class="label-required">Casualty Type</label>
+                            </div>
+                            @*Gender*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-casualty-Gender" name="casualty-Gender">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-casualty-Gender" class="label-required">Gender</label>
+                            </div>
+                            @*Age*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CasualtyAge" placeholder="Age" type="number" />
+                                <label>Age</label>
+                            </div>
+                            @*Name*@
+                            <div class="form-floating">
+                                <input class="form-control" id="CasualtyName" placeholder="Name" type="text" />
+                                <label>Name</label>
+                            </div>
+                            @*Address*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="CasualtyAddress" placeholder="Address"></textarea>
+                                <label class="label-floating">Address</label>
+                            </div>
+                            @*Remarks*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="CasualtyRemarks" placeholder="Remarks"></textarea>
+                                <label class="label-floating">Remarks</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="casualty-add-btn" title="Add" onclick="CallHandling.addCasualtyToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Casualty To Table</button>
+                            @*Casualty Table*@
+                            <div class="w-100 my-4">
+                                <table id="CasualtyTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - FATALITY STATION*@
+                    <div id="scrollspy-fatality" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#fatality" aria-expanded="false">
+                            <span class="span-medium"> Fatality Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="fatality">
+                            @*Fatality Id*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.IncidentFatality.Id, new { @id = "FatalityId", @IncidentFatality = "Id" })
+                            </div>
+                            @*Total Death*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.IncidentFatality.TotalDeath, new { @class = "form-control", @IncidentFatality = "TotalDeath", @id = "TotalDeath", @type = "number", @placeholder = "TotalDeath", @onchange = "CallHandling.updateValue($(event.target), 'fatality', 'IncidentFatality', 'FatalityId')" })
+                                <label>Total No. Of Death</label>
+                            </div>
+                            <hr />
+                            @*Fatality Type*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-fatality-Type" name="vType">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-fatality-Type" class="label-required">Fatality Type</label>
+                            </div>
+                            @*Gender*@
+                            <div class="form-floating">
+                                <select class="form-select" id="select-fatality-Gender" name="fatality-Gender">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-fatality-Gender" class="label-required">Gender</label>
+                            </div>
+                            @*Age*@
+                            <div class="form-floating">
+                                <input class="form-control" id="FatalityAge" placeholder="Age" type="number" />
+                                <label>Age</label>
+                            </div>
+                            @*Name*@
+                            <div class="form-floating">
+                                <input class="form-control" id="FatalityName" placeholder="Name" type="text" />
+                                <label>Name</label>
+                            </div>
+                            @*Address*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="FatalityAddress" placeholder="Address"></textarea>
+                                <label class="label-floating">Address</label>
+                            </div>
+                            @*Remarks*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="FatalityRemarks" placeholder="Remarks"></textarea>
+                                <label class="label-floating">Remarks</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="fatality-add-btn" title="Add" onclick="CallHandling.addFatalityToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Fatality To Table</button>
+                            @*Fatality Table*@
+                            <div class="w-100 my-4">
+                                <table id="FatalityTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - DAMAGE*@
+                    <div id="scrollspy-damage" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#damage" aria-expanded="false">
+                            <span class="span-medium"> Damage Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="damage">
+                            @*Details*@
+                            <div class="form-floating">
+                                <textarea class="form-control" id="DamageDetails" placeholder="Damage Details"></textarea>
+                                <label class="label-floating">Damage Details</label>
+                            </div>
+                            @*Estimated Value*@
+                            <div class="form-floating">
+                                <input class="form-control" id="EstimatedValue" placeholder="Estimated Value" type="number" />
+                                <label>Estimated Value</label>
+                            </div>
+                            @*Damage Cost*@
+                            <div class="form-floating">
+                                <input class="form-control" id="DamageCost" placeholder="Damage Cost" type="number" />
+                                <label>Damage Cost</label>
+                            </div>
+                            @*Salvage*@
+                            <div class="form-floating">
+                                <input class="form-control" id="Salvage" placeholder="Salvage" type="number" readonly />
+                                <label>Salvage</label>
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="damage-add-btn" title="Add" onclick="CallHandling.addDamageToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Damage To Table</button>
+                            @*Damage Table*@
+                            <div class="w-100 my-4">
+                                <table id="DamageTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - File*@
+                    <div id="scrollspy-file" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#file" aria-expanded="false">
+                            <span class="span-medium"> File Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="file">
+                            @*File*@
+                            <div class="form-floating">
+                                <input class="form-control" id="FileFile" placeholder="FileFile" type="file" />
+                            </div>
+                            @*Add Data To Table*@
+                            <button id="file-add-btn" title="Add" onclick="CallHandling.addFileToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add File To Table</button>
+                            @*File Table*@
+                            <div class="w-100 my-4">
+                                <table id="FileTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - Chat*@
+                    <div id="scrollspy-chat" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#chat" aria-expanded="false">
+                            <span class="span-medium"> Chat Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="chat">
+                            @*Message Box*@
+                            <div class="imessage">
+                            </div>
+                            @*send message*@
+                            <div class="row w-100">
+                                <div class="col-10 p-0">
+                                    <textarea class="form-control" id="chat-message" placeholder="Write Your Message"></textarea>
+                                </div>
+                                <div class="col-2 pe-0">
+                                    <button id="chat-send-btn" title="Send" onclick="CallHandling.sendMessage()" class="btn-c-secondary form-control h-100 w-100"><i class="fa-regular fa-paper-plane me-2"></i>Send</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - Mobile Request*@
+                    <div id="scrollspy-mobile" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#mobile" aria-expanded="false">
+                            <span class="span-medium"> Mobile Request </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="mobile">
+                            @*Request Table*@
+                            <div class="w-100 my-4">
+                                <table id="RequestTable"></table>
+                            </div>
+                        </div>
+                    </div>
+                    @*scrollspy sub section - Final report Additional Information*@
+                    <div id="scrollspy-final" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section collapsed" data-bs-toggle="collapse" href="#final" aria-expanded="false">
+                            <span class="span-medium"> Final report Additional Information </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel" id="final">
+                            @*Remarks*@
+                            <div class="form-floating">
+                                @Html.TextAreaFor(m => m.Incident.IncidentReportRemarks, new { @class = "form-control h-40", @Incident = "IncidentReportRemarks", @id = "IncidentReportRemarks", @type = "text", @placeholder = "IncidentReportRemarks", @onfocusout = "CallHandling.updateValue($(event.target), 'incident-info', 'Incident')" })
+                                <label class="label-floating">Remarks</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-incident-info" onclick="CallHandling.openScrollspy('incident-info')">
+                            <span class="span-medium">Incident Details</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-location" onclick="CallHandling.openScrollspy('location')">
+                            <span class="span-medium">Location Of Incident</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-caller" onclick="CallHandling.openScrollspy('caller')">
+                            <span class="span-medium">Caller Information</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-station" onclick="CallHandling.openScrollspy('station')">
+                            <span class="span-medium">Fire Station Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-vehicle" onclick="CallHandling.openScrollspy('vehicle')">
+                            <span class="span-medium">Vehicle Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-equipment" onclick="CallHandling.openScrollspy('equipment')">
+                            <span class="span-medium">Equipment Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-resource" onclick="CallHandling.openScrollspy('resource')">
+                            <span class="span-medium">Resource Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-external" onclick="CallHandling.openScrollspy('external')">
+                            <span class="span-medium">External Agency</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-casualty" onclick="CallHandling.openScrollspy('casualty')">
+                            <span class="span-medium">Casualty Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-fatality" onclick="CallHandling.openScrollspy('fatality')">
+                            <span class="span-medium">Fatality Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-damage" onclick="CallHandling.openScrollspy('damage')">
+                            <span class="span-medium">Damage Info</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-file" onclick="CallHandling.openScrollspy('file')">
+                            <span class="span-medium">Files</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-chat" onclick="CallHandling.openScrollspy('chat')">
+                            <span class="span-medium">Chat</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-mobile" onclick="CallHandling.openScrollspy('mobile')">
+                            <span class="span-medium">Mobile Request</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-final" onclick="CallHandling.openScrollspy('final')">
+                            <span class="span-medium">Final report Additional Information</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+@*Actions*@
+<div class="row action-bar">
+
+    <button id="back-btn" title="Back" onclick="CallHandling.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    @if (Model.Status != DAL.Common.TransactionStatus.Completed)
+    {
+        if (Model.Status != DAL.Common.TransactionStatus.Abort)
+        {
+            <button id="abort-btn" title="Abort" onclick="CallHandling.abort()" class="form-control btn-c-error me-3"><i class="fa-solid fa-ban me-2"></i>Abort</button>
+            <button id="complete-btn" title="Complete" onclick="CallHandling.complete()" class="form-control btn-c-secondary me-3"><i class="fa-solid fa-check-double me-2"></i>Complete</button>
+            @if (Model.HasAckowledge == true)
+            {
+                <button id="acknowledge-btn" title="Acknowledge" onclick="CallHandling.acknowledge()" class="form-control btn-c-primary me-3"><i class="fa fa-sync me-2"></i>Acknowledge</button>
+            }
+            @if (Model.Status == DAL.Common.TransactionStatus.Submitted)
+            {
+                <button id="assign-btn" title="Assign" onclick="CallHandling.assign()" class="form-control btn-c-secondary me-3"><i class="fa fa-save me-2"></i>Assign</button>
+            }
+            @if (Model.Status != DAL.Common.TransactionStatus.Submitted)
+            {
+                <button id="save-btn" title="Save" onclick="CallHandling.save()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Submit</button>
+            }
+
+        }
+        else
+        {
+            <span class="d-flex f-weight-black me-3 min naveo-color-red span-large w-min-content" style="">Aborted</span>
+        }
+
+    }
+    else
+    {
+        <span class="d-flex f-weight-black me-3 min naveo-color-green span-large w-min-content" style="">Completed</span>
+    }
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Modules/Transaction/CallHandling/CallHandling.js" type="module"></script>
+}

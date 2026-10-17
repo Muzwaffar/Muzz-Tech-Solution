@@ -1,0 +1,62 @@
+﻿@using BL.Models.Form;
+@model FormDTO;
+
+<div id="Form-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Form Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "number", @placeholder = "Id"})
+        </div>
+
+        @*Form Code*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "code", @type = "text", @placeholder = "Code", @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Form Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Name</label>
+        </div>
+
+        @*Form Start Date*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.StartDate,"{0:yyyy-MM-dd}", new { @class="form-control",@result="StartDate", @id = "StartDate", @type = "date", @placeholder = "Start Date"})
+            <label>RStart Date</label>
+        </div>
+
+        @*Form End Date*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.EndDate,"{0:yyyy-MM-dd}", new { @class="form-control",@result="EndDate", @id = "EndDate", @type = "date", @placeholder = "End Date"})
+            <label>End Date</label>
+        </div>
+
+        @*Form Type*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.FormTypeId, new {@id = "select-formType-id"})
+            <select class="form-select" id="select-formType" name="FormTypeId" FormType="Id" required>
+                <option value=""></option>
+            </select>
+            <label for="select-formType" class="label-required">Form Type </label>
+        </div>
+
+        @*Section Table*@
+        <div class="mt-1 mx-5 w-100">
+            <table id="relation-Section-Table"></table>
+        </div>
+
+        <div class="section w-40" >
+            <span class="span-medium"> Ordering </span>
+        </div>
+        <div class="contentOrderInfo"></div>
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="FormAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

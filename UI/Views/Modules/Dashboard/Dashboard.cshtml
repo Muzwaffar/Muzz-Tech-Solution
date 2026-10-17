@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/Modules/Dashboard/Dashboard.css" />
+}
+
+@*Main Container*@
+<div>
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa fa-dashboard me-2 fa-1x"></i> Dashboard </span>
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+            </div>
+
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center w3-animate-zoom">
+        <span class="span-larger"> MFRS Control Room & Mobilization Management System</span>
+    </div>
+</div>
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Dashboard/Dashboard.js" type="module"></script>
+}
+

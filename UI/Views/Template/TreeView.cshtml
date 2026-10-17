@@ -1,0 +1,70 @@
+﻿@{
+    ViewData["Title"] = "Tree";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@*Main Container*@
+<div>
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa fa-dashboard me-2 fa-1x"></i> Tree </span>
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+            </div>
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <h6>Tree View</h6>
+    </div>
+
+    <hr />
+    <div class="d-flex justify-content-center">
+        
+        <div id="tree"></div>
+
+    </div>
+
+    <div class="instructions">
+
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="true">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="..." class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="..." class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="..." class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<p>To Create a new node ,right click on the parent node and select Create. A textbox shall appear where the new node will be created and input the node name. </p>
+
+@*Actions*@
+<div class="row action-bar top-action">
+    <button id="value-back-btn" title="Get Data" onclick="TreeView.getData()" class="form-control btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Template/TreeView.js" type="module"></script>
+}

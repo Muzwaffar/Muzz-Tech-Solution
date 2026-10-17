@@ -1,0 +1,114 @@
+﻿@using BL.Models.Schedule;
+@model CalenderViewDTO;
+
+<div id="Plan-AddEdit-Panel">
+    <h5 class="mx-5 mt-3"> General Information </h5>
+    <div class="row popup-items-row">
+
+
+        @*Schedule Id HIDDEN*@
+        <div class="form-floating short-input d-none">
+            <span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control form-control-Schedule input-floating input-schedule", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*Schedule Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.ScheduleName, new { @class="form-control form-control-Schedule input-floating input-schedule", @id = "ScheduleName", @type = "text", @placeholder = "Job Name" , @readonly="true"})
+            <label class="label-floating">Job Name</label>
+        </div>
+
+        @*Client Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.ClientName, new { @class="form-control form-control-Schedule input-floating input-schedule", @id = "ClientName", @type = "text", @placeholder = "Client Name" , @readonly="true"})
+            <label class="label-floating">Client Name</label>
+        </div>
+
+        @*Status*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Status, new { @class="form-control form-control-Schedule input-floating input-schedule", @id = "Status", @type = "text", @placeholder = "Status" , @readonly="true"})
+            <label class="label-floating">Status</label>
+        </div>
+
+        @*Start Time*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.StartTime,"{0:yyyy-MM-ddTHH:mm}", new { @class="form-control form-control-Schedule input-floating input-schedule",@result="StartTime", @id = "StartTime", @type = "datetime-local", @placeholder = "Start Time", @readonly="true"})
+            <label class="label-floating">Start DateTime</label>
+        </div>
+
+        @*End Time*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.EndTime,"{0:yyyy-MM-ddTHH:mm}", new { @class="form-control form-control-Schedule input-floating input-schedule",@result="EndTime", @id = "EndTime", @type = "datetime-local", @placeholder = "End Time", @readonly="true" })
+            <label class="label-floating">End DateTime</label>
+        </div>
+
+        @*Departure Address*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.DepartureAdd, new { @class="form-control form-control-Schedule input-floating input-schedule", @id = "DepartureAddress", @type = "text", @placeholder = "Arrival Address" , @readonly="true"})
+            <label class="label-floating">Arrival Address</label>
+        </div>
+
+        @*Arrival Address*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.ArrivalAdd, new { @class="form-control form-control-Schedule input-floating input-schedule", @id = "ArrivalAddress", @type = "text", @placeholder = "Departure Address" , @readonly="true"})
+            <label class="label-floating">Departure Address</label>
+        </div>
+
+    </div>
+    <hr />
+    @*Equipment and Consumables Table*@
+    <h5 class="mx-5"> Equipment and Consumables </h5>
+    <div class="mt-3">
+        <table id="relation-equpment-consumables-Table" class="relation-table"></table>
+    </div>
+
+    <hr />
+
+    @*Clients and Service*@
+    <h5 class="mx-5"> Clients and Services </h5>
+    <div class=" ms-5 mt-1">
+        @foreach (var item in Model.Services)
+        {
+            <div>
+                <span class=""><i class="fa fa-check-circle me-2 text-c-secondary"></i>@item</span>
+            </div>
+        }
+
+    </div>
+    <hr />
+
+    @*Helpers*@
+    <h5 class="mx-5"> Helpers </h5>
+    <div class=" ms-5 mt-1">
+        @foreach (var item in Model.Helpers)
+        {
+            <div>
+                <span class=""><i class="fa fa-user me-2 text-c-secondary"></i>@item</span>
+            </div>
+        }
+    </div>
+
+    <hr />
+
+    @*Remarks*@
+    <h5 class="mx-5"> Remarks </h5>
+    <div class=" ms-5 mt-1 mb-3">
+        @foreach (var item in Model.Remarks)
+        {
+
+            <div class="line-break d-flex">
+                <i class="fa fa-note-sticky me-2 mt-1 text-c-secondary"></i>
+                <span class="">@item</span>
+            </div>
+        }
+    </div>
+
+    <hr />
+    @*File Table*@
+    <h5 class="mx-5"> Files </h5>
+    <div class="my-3">
+        <table id="relation-file-Table" class="relation-table"></table>
+    </div>
+
+
+</div>

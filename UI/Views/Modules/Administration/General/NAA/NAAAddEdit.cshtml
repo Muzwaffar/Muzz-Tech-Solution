@@ -1,0 +1,123 @@
+﻿@using BL.Models.Administration;
+@model NAACRUDTO;
+
+<div id="NAA-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*NAA Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*NAA Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Code" , @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Title*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Title, new {@id = "select-title-id" })
+            <select class="form-select" id="select-title" name="Title" result="Title" required>
+                <option value=""></option>
+            </select>
+            <label for="select-title" class="label-required"> Title </label>
+        </div>
+
+        @*NAA FirstName*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.FirstName, new { @class="form-control",@result="FirstName", @id = "FirstName", @type = "text", @placeholder = "First Name"})
+            <label class="label-floating">First Name</label>
+        </div>
+
+        @*NAA MiddleName*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.MiddleName, new { @class="form-control",@result="MiddleName", @id = "MiddleName", @type = "text", @placeholder = "Middle Name"})
+            <label class="label-floating">Middle Name</label>
+        </div>
+
+        @*NAA LastName*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.LastName, new { @class="form-control",@result="LastName", @id = "LastName", @type = "text", @placeholder = "Surname",@required  = "required"})
+            <label class="label-floating label-required">Surname</label>
+        </div>
+
+        @*NAA Identifier*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Identifier, new { @class="form-control",@result="Identifier", @id = "Identifier", @type = "text", @placeholder = "Identifier(eg. NIC/Passport)",@required  = "required"})
+            <label class="label-floating label-required">Identifier(eg. NIC/Passport)</label>
+        </div>
+
+        @*NAA Gender*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.Gender, new {@id = "select-gender-id" })
+            <select class="form-select" id="select-gender" name="Gender" result="Gender">
+                <option value=""></option>
+            </select>
+            <label for="select-gender"> Gender </label>
+        </div>
+
+        @*NAA DOB*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.DOB,"{0:yyyy-MM-dd}", new { @class="form-control",@result="DOB", @id = "DOB", @type = "date", @placeholder = "DOB"})
+            <label>DOB</label>
+        </div>
+
+        @*NAA Email*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Email, new { @class="form-control",@result="Email", @id = "Email", @type = "text", @placeholder = "Email" })
+            <label class="label-floating ">Email</label>
+        </div>
+
+        @*NAA TelNo*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.TelNo, new { @class="form-control",@result="TelNo", @id = "TelNo", @type = "text", @placeholder = "Telephone No" })
+            <label class="label-floating ">Telephone No</label>
+        </div>
+
+        @*NAA MobileNo*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.MobileNo, new { @class="form-control",@result="MobileNo", @id = "MobileNo", @type = "text", @placeholder = "Mobile No" })
+            <label class="label-floating ">Mobile No</label>
+        </div>
+
+        @*NAA Occupation*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Occupation, new { @class="form-control",@result="Occupation", @id = "Occupation", @type = "text", @placeholder = "Occupation" })
+            <label class="label-floating ">Occupation</label>
+        </div>
+
+        @*NAA Address*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Address, new { @class="form-control",@result="Address", @id = "Address", @type = "text", @placeholder = "Address" })
+            <label class="label-floating ">Address</label>
+        </div>
+
+        @*NAA Street*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Street, new { @class="form-control",@result="Street", @id = "Street", @type = "text", @placeholder = "Street" })
+            <label class="label-floating ">Street</label>
+        </div>
+
+        @*NAA Locality*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Locality, new { @class="form-control",@result="Locality", @id = "Locality", @type = "text", @placeholder = "Locality" })
+            <label class="label-floating ">Locality</label>
+        </div>
+
+        @*NAA VillageTown*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.VillageTown, new { @class="form-control",@result="VillageTown", @id = "VillageTown", @type = "text", @placeholder = "Village Town" })
+            <label class="label-floating ">Village Town</label>
+        </div>
+
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="value-save-btn" title="Save" onclick="NAAAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

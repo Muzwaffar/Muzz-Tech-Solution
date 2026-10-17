@@ -1,0 +1,25 @@
+﻿@using DAL.Models.Administration;
+@model NPF_SYS_UomHeader;
+
+<div id="UomHeader-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*UOM Header Id HIDDEN*@
+        <div class="form-floating d-none">
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "number", @placeholder = "Id"})
+        </div>
+
+        @*UOM Header Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "typeName", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Name</label>
+        </div>
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="type-save-btn" title="Save" onclick="UomHeaderAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

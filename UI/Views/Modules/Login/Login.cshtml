@@ -1,0 +1,97 @@
+﻿@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_LayoutNoNavbarSidemenu.cshtml";
+}
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/Modules/Login/LoginPanel.css" />
+}
+
+<div id="login-panel" class="row">
+    <div class="col-md-6">
+        <div class="login-header d-flex mt-2 mx-3">
+            <img class="loginLogo" src="~/assets/Common/Logo/crms-logo.png" />
+        </div>
+        <div class="login-body input-group">
+            <div class="login-form">
+                <label class="login-label mb-2">Email Address</label>
+                <input required result="email" type="text" class="form-control login-input" onkeyup="Login.loginInputChange()" />
+
+                <label class="login-label mb-2">Password</label>
+                <div class="password-body">
+                    <input required result="password" type="password" id="passwordContainer" class="form-control login-input" onkeyup="Login.loginInputChange()" />
+                    <i id="password-show-hide" class="fa fa-eye" onclick="Login.togglePasswordVisibility()"></i>
+                </div>
+
+                <div class="d-flex mb-3 align-items-end" id="login-actions">
+                    <div class="d-flex align-items-end">
+                        <input type="checkbox" class="checkbox me-2" />
+                        <span> Remember Me?</span>
+                    </div>
+                    @Html.ActionLink("Forgot Password?", "ForgotPassword", "Login", null, new { @class = "link-primary"})
+                </div>
+
+                <div class="d-flex justify-content-center my-4">
+                    <button class="form-control btn-c-primary" id="loginButton" onclick="Login.login()">
+                        Log In
+                    </button>
+                </div>
+
+
+                <div class="disclaimer mt-5">
+
+                    <span class="span-small" id="disclaimer">
+                        By tapping Login, you agree to Naveo's
+                        <a class="link-primary span-small" href="#partialCompanyInfo" onclick="policyAndTerms.termsConditions()">Terms and Conditions</a>
+                        and
+                        <a class="link-primary span-small" href="#partialCompanyInfo" onclick="policyAndTerms.privacyPolicy()">Privacy Policy</a>
+                    </span>
+
+                    <div class="d-flex justify-content-end">
+                        <span class="float-right span-small">
+                            <a class="link-primary span-small" href="#partialCompanyInfo" onclick="policyAndTerms.aboutNaveo()">Naveo&copy;2025</a>
+                        </span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6" id="login-img-panel">
+    </div>
+
+</div>
+
+@* =======================================
+    Partial View Policy, Terms, About us
+   ======================================= *@
+<div id="partialCompanyInfo" class="overlay-partial-terms">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-user-lock me-2"></i>Naveo</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="contentCompanyInfo">
+        </div>
+    </div>
+</div>
+
+@* =======================================
+    Partial View Change Password
+    ====================================== *@
+<div id="partialPasswordLogin" class="overlay-partial-terms">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-key me-2"></i>Change Password</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="contentPassword p-3">
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Login/Login.js" type="module"></script>
+    <script src="~/Scripts/Common/Container/PolicyandTerms.js" type="module"></script>
+}

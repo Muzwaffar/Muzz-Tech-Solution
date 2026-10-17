@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@*Model Used *@
+@using BL.Models.Administration;
+@model CallerCRUDDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="Caller-tab" data-bs-toggle="pill" data-bs-target="#details-Caller" type="button" role="tab" aria-controls="details-StoreItem" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+
+<div class="tab-content " id="Caller-item-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-item" role="tabpanel" aria-labelledby="Caller-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="Caller-AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-details" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                            <span class="span-medium"> General Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="details">
+                            @*Caller Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Code" , @readonly="true"})
+                                <label class="label-floating">Code</label>
+                            </div>
+                            @*Caller MobileNo*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control", @result = "MobileNo", @id = "MobileNo", @type = "text", @placeholder = "Mobile No", @required = "required", @maxlength = "15", onfocusout = "GetNAABYNIC.getNaaByMobileNo($(event.target))" })
+                                <label class="label-floating label-required">Contact Number</label>
+                            </div>
+                            @*NAA Id*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.NAAId, new { @class="form-control",@result="NAAId", @id = "NAAId", @type = "number", @placeholder = "NAAId"})
+                            </div>
+
+                            @*NAA Code*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.NAACode, new { @class="form-control",@result="NAACode", @id = "NAACode", @type = "text", @placeholder = "NAACode"})
+                            </div>
+
+                            @*Caller FirstName*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.FirstName, new { @class="form-control",@result="FirstName", @id = "FirstName", @type = "text", @placeholder = "First Name"})
+                                <label class="label-floating">First Name</label>
+                            </div>
+
+                            @*Caller LastName*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.LastName, new { @class="form-control",@result="LastName", @id = "LastName", @type = "text", @placeholder = "Surname" })
+                                <label class="label-floating">Surname</label>
+                            </div>
+
+                            @*Caller NICPassport*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.NICPassport, new { @class="form-control",@result="NICPassport", @id = "NICPassport", @type = "text", @placeholder = "NIC/Passport" })
+                                <label class="label-floating">NIC</label>
+                            </div>
+
+                            @*Caller Address*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Address, new { @class="form-control",@result="Address", @id = "Address", @type = "text", @placeholder = "Address" })
+                                <label class="label-floating ">Address</label>
+                            </div>
+
+                            @*Caller Street*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Street, new { @class="form-control",@result="Street", @id = "Street", @type = "text", @placeholder = "Street" })
+                                <label class="label-floating ">Street</label>
+                            </div>
+
+                            @*Caller Locality*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.Locality, new { @class="form-control",@result="Locality", @id = "Locality", @type = "text", @placeholder = "Locality" })
+                                <label class="label-floating ">Locality</label>
+                            </div>
+
+                            @*Caller Locality Id*@
+                               <div class="form-floating">
+                                @Html.HiddenFor(m => m.LocalityId, new {@id = "select-LocalityId-id" })
+                                <select class="form-select" id="select-LocalityId" name="LocalityId" result="LocalityId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Locality"> Locality</label>
+                            </div>
+
+                            @*Caller District*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.District, new { @class="form-control",@result="District", @id = "District", @type = "text", @placeholder = "District" })
+                                <label class="label-floating ">Locality</label>
+                            </div>
+
+                            @*Caller District Id*@
+                               <div class="form-floating">
+                                @Html.HiddenFor(m => m.DistrictId, new {@id = "select-DistrictId-id" })
+                                <select class="form-select" id="select-DistrictId" name="DistrictId" result="DistrictId">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-DistrictId"> District</label>
+                            </div>
+
+                            @*Caller Nuisance*@
+        <div class="form-floating">
+                                @Html.CheckBoxFor(m => m.IsNuisance, new { @class="form-control",@result="IsNuisance", @id = "IsNuisance", @type = "checkbox", @placeholder = "CheckBox"})
+            <label class="label-checkbox label-required">Is Nuisance?</label>
+        </div>
+
+                            @*Caller Street*@
+                            <div class="form-floating">
+                                @Html.TextAreaFor(m => m.Remarks, new { @class="form-control",@result="Remarks", @id = "Remarks", @type = "text", @placeholder = "Remarks" })
+                                <label class="label-floating ">Remarks</label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-details">
+                            <span class="span-medium">General Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="Caller.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-save-btn" title="Save" onclick="Caller.saveUpdate()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@*References*@
+@section Scripts{
+                        <script src="~/Scripts/Modules/Administration/General/Caller/Caller.js" type="module"></script>
+                        <script src="~/Scripts/Modules/Administration/Common/GetNAAByNIC.js" type="module"></script>
+}

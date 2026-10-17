@@ -1,0 +1,52 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+                @*Breadcrumb : Dropdown *@
+                <ul class="dropdown-menu">
+                    @*Breadcrumb : Export Button *@
+                    <li><a class="dropdown-item" onclick="$('.buttons-excel').click()">Export Excel</a></li>
+                </ul>
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+        </div>
+    </div>
+</div>
+
+
+@*Partial View*@
+<div id="partial" class="overlay-partial">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-clone me-2"></i>Animal Events</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Content Start*@
+<table id="Table"></table>
+@*Content End*@
+
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Administration/AssetManagement/Equipment/EquipmentList.js" type="module"></script>
+
+}

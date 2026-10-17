@@ -1,0 +1,78 @@
+﻿@using DAL.Models;
+@model ApplicationUser;
+
+<div id="UserAddEdit-Panel">
+    <div class="row popup-items-row">
+
+        @*User Id HIDDEN*@
+        <div class="form-floating short-input d-none"><span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control input-floating",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        <div class="form-floating short-input d-none"><span></span>
+            @Html.TextBoxFor(m => m.UserToken, new { @class="form-control input-floating",@result="UserToken", @id = "UserToken", @type = "text", @placeholder = "UserToken"})
+        </div>
+
+        @*User Code*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.UserCode, new { @class="form-control input-floating",@result="UserCode", @id = "UserCode", @type = "text", @placeholder = "User Code" , @readonly="true"})
+            <label class="label-floating">USER Code</label>
+        </div>
+
+  
+
+          @*Title*@
+        <div class="short-input  select-form-floating">
+            <label class="label-select-multiselect label-required">Title</label>
+            @Html.HiddenFor(m => m.Title, new {@id = "select-title-id"})
+            <select id="select-title" name="Title" result="Title">
+                <option value=""></option>
+            </select>
+        </div>
+
+
+        @*First Name*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.FirstName, new { @class="form-control input-floating",@result="FirstName", @id = "firstName", @type = "text", @placeholder = "First Name" ,@required  = "required"})
+            <label class="label-floating label-required">First Name</label>
+        </div>
+
+        @*Surname*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.LastName, new { @class="form-control input-floating",@result="LastName", @id = "lastName", @type = "text", @placeholder = "Surname" ,@required  = "required"})
+            <label class="label-floating label-required">Surname</label>
+        </div>
+
+
+        @*Email*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.Email, new { @class="form-control input-floating",@result="Email", @id = "email", @type = "email", onfocusout="Validation.email($(event.target))", @placeholder = "Email" ,@required  = "required"})
+            <label class="label-floating label-required">Email</label>
+        </div>
+
+
+        @*Telephone Number*@
+        <div class="form-floating short-input">
+            @Html.TextBoxFor(m => m.PhoneNumber, new { @class="form-control input-floating",@result="PhoneNumber", @id = "telNo", @type = "number", @placeholder = "Phone No"})
+            <label class="label-floating">Telephone No</label>
+        </div>
+
+           @*Role*@
+        <div class="short-input  select-form-floating">
+            <label class="label-select-multiselect label-required">Roles</label>
+            @Html.HiddenFor(m => m.Roles.Id, new {@id = "select-roles-id"})
+            <select id="select-roles" name="Role" Roles="Id">
+                <option value=""></option>
+            </select>
+        </div>
+       
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="naa-save-btn" title="Save" onclick="UserAddEdit.saveUpdateUser()" class="form-control btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

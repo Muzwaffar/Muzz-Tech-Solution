@@ -1,0 +1,215 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@using BL.Models.Administration
+@model RosterShiftResourceMappingDTO;
+
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="Roster-tab" data-bs-toggle="pill" data-bs-target="#details-Roster" type="button" role="tab" aria-controls="details-Roster" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+
+    @*Main Container Start*@
+    @*IMPORTANT : id to retrieve data to send to api  *@
+    <div class="tab-content " id="roster-control">
+        @*Main Container scrollspy : Project Info*@
+        <div class="tab-pane fade show active" id="details-Roster" role="tabpanel" aria-labelledby="Roster-tab">
+            @*scrollspy*@
+            <div class="row content-scrollspy">
+                @*scrollspy content*@
+                <div class="col-10 content-form">
+                    <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    <div id="Roster-AddEdit-Panel">
+                        @*scrollspy sub section*@
+                        <div id="scrollspy-details" class="scrollspy-transition">
+                            @*sub section Header*@
+                            <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                                <span class="span-medium"> General Details </span>
+                                <span class="collapsible-icon"></span>
+                            </div>
+                            @*sub section Content*@
+                            <div class="collapse form-panel show" id="details">
+                                @*Roster Id HIDDEN*@
+                                <div class="form-floating short-input d-none">
+                                    <span></span>
+                                    @Html.TextBoxFor(m => m.Roster.Id, new { @class = "form-control input-floating", @result = "Id", @id = "Id", @type = "text", @placeholder = "Id" })
+                                </div>
+
+                                @*Roster Code*@
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(m => m.Roster.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Roster Code", @readonly = "true" })
+                                    <label class="label-floating">Code</label>
+                                </div>
+
+
+                                @*Roster Name*@
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(m => m.Roster.Name, new { @class = "form-control input-floating", @result = "Name", @id = "rosterName", @type = "text", @placeholder = "Name", @required = "required" })
+                                    <label class="label-floating label-required">Name</label>
+                                </div>
+
+                                @*Roster Description*@
+                                <div class="form-floating">
+                                    @Html.TextAreaFor(m => m.Roster.Description, new { @class = "form-control textarea-floating", @result = "Description", @id = "RosterDesc", @type = "text", @placeholder = "Description" })
+                                    <label class="label-textarea-floating">Description</label>
+                                </div>
+
+                                @*Roster From*@
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(m => m.Roster.RosterFrom, "{0:yyyy-MM-dd}", new { @class = "form-control input-floating", @result = "RosterFrom", @id = "rosterFr", @type = "date", @placeholder = "Date From", @oninput = "RosterAddEdit.hideEditPanel()" })
+                                    <label class="label-floating label-required">Date From</label>
+                                </div>
+
+                                @*Roster To*@
+                                <div class="form-floating">
+                                    @Html.TextBoxFor(m => m.Roster.RosterTo, "{0:yyyy-MM-dd}", new { @class = "form-control input-floating", @result = "RosterTo", @id = "rosterTo", @type = "date", @placeholder = "Date To", @oninput = "RosterAddEdit.hideEditPanel()" })
+                                    <label class="label-floating label-required">Date To</label>
+                                </div>
+
+                            </div>
+                          </div>
+                       
+                               
+
+                        </div>
+                        <div id="scrollspy-shift" class="scrollspy-transition">
+                            <div class="section" data-bs-toggle="collapse" href="#shiftDetails" aria-expanded="true">
+                                <span class="span-medium"> Shift Details </span>
+                                <span class="collapsible-icon"></span>
+                            </div>
+                        <div class="collapse show" id="shiftDetails">
+                                @*Relation Table :Day Selection Table*@
+                                <div class="m-auto w-40">
+                                    <div class="mt-3">
+                                        <label class="label-floating label-required">Day Selection</label>
+                                    </div>
+
+                                   <div class="m-3"></div>
+                                    <table id="day-Selection-Table" class="relation-table"></table>
+
+                                <div class="d-flex flex-row-reverse me-4 mt-3 d-none">
+                                    <button id="roster-edit-btn" title="Edit" onclick="RosterAddEdit.EditShift()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-edit me-2"></i>Edit Shift for Individual days</button>
+                                </div>
+                                <div id="RenderShift" class="mx-5 my-4  d-none">
+                                    <div id="EditShift" class="editShift">
+                                    </div>
+                                </div>
+                                 </div>
+
+                                  
+
+                            </div>
+                        </div>
+
+                        <div id="scrollspy-resource" class="scrollspy-transition">
+                            <div class="section" data-bs-toggle="collapse" href="#resourceDetails" aria-expanded="true">
+                                <span class="span-medium"> Resource Details </span>
+                                <span class="collapsible-icon"></span>
+                            </div>
+                           <div class="collapse show" id="resourceDetails">
+                                
+                               
+                            <div class="m-auto w-40">
+                                @*Resource*@
+                                <div class="form-floating" id="resource">
+                                    <select id="select-resource" class="form-select" name="Resource" Relation="Resource">
+                                        <option value=""></option>
+                                    </select>
+                                    <label class="label-required">Resource</label>
+                                </div>
+
+                               
+                                <div class="align-self-center ms-3 mt-3">
+                                    <button id="relation-add-btn" title="Add" onclick="RosterAddEdit.addRelation()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add</button>
+                                </div>
+                                 <div class="m-3"></div>
+                                @*Relation Table :Team - Relationship*@
+                                <table id="relation-Resource-R-Table" class="relation-table"></table>
+                            </div>
+                            </div>
+
+                        </div>
+
+                        
+                    </div>
+                </div>
+                @*scrollspy action*@
+                <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                    @*scrollspy action : Header*@
+                    <span class="naveo-color m-3"> Sections</span>
+                    @*scrollspy actions content*@
+                    <div class="scrollspy-content">
+                        @*scrollspy actions item*@
+                        <div class="m-3">
+                            <a href="#scrollspy-details">
+                                <span class="span-medium">General Details</span>
+                            </a>
+                        </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-shift">
+                            <span class="span-medium">Shift Details</span>
+                        </a>
+                    </div>
+                    <div class="m-3">
+                        <a href="#scrollspy-resource">
+                            <span class="span-medium">Resource Details</span>
+                        </a>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    @*Main Container End*@
+
+    @*Save Action*@
+   @*  <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="roster-save-btn" title="Save" onclick="RosterAddEdit.saveUpdateRoster()" class="form-control btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div> *@
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="RosterAddEdit.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-save-btn" title="Save" onclick="RosterAddEdit.saveUpdateRoster()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts {
+    <script src="~/Scripts/Modules/Administration/General/Roster/RosterAddEdit.js" type="module"></script>
+}

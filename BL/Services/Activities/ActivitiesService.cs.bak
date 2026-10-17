@@ -1,0 +1,314 @@
+﻿using BL.Constants;
+using BL.Models.Activities;
+using BL.Models.Common;
+using BL.Models.Dashboard;
+using BL.Models.ServiceRequest;
+using BL.Services.Common;
+using DAL.Common;
+using DAL.DBContext;
+using DAL.Models;
+using DAL.Models.Administration;
+using DAL.Models.Client;
+using DAL.Models.Service;
+using DAL.Models.ServiceRequest;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.DateTime;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace BL.Services.Activities
+{
+    public class ActivitiesService
+    {
+        private FsmContext context;
+        private QueryResult queryResult;
+
+        public ActivitiesService()
+        {
+            context = new FsmContext();
+            queryResult = new QueryResult();
+        }
+        public async Task<BaseResponseDTO<MyActivitiesGraphDTO>> GetAllGraph(BaseRequestDTO<DateRangeDTO> dt)
+        {
+            BaseResponseDTO<MyActivitiesGraphDTO> dto = new BaseResponseDTO<MyActivitiesGraphDTO>();
+            MyActivitiesGraphDTO dtx = new MyActivitiesGraphDTO();
+            string errorMsg = "No Data Found";
+            try
+            {
+                dtx.ByItems = await GetByItems(dt);
+                dtx.PieData = await GetPieData(dt);
+                dto.Data = dtx;
+                dto.QryResult = queryResult.SUCEEDED;
+            }
+            catch (Exception ex)
+            {
+                dto.Data = dtx;
+                dto.AdditionalData = errorMsg;
+                dto.QryResult = queryResult.FAILED;
+            }
+
+            return dto;
+        }
+        public async Task<List<OverDictionanry>> GetByItems(BaseRequestDTO<DateRangeDTO> dt)
+        {
+            List<OverDictionanry> dto = new List<OverDictionanry>();
+            try
+            {
+                DateTime today = dt.Data.To.EndOfDay();
+                DateTime loop = dt.Data.From.StartOfDay();
+
+                List<FSM_SER_Activities> Sr = context.FSM_SER_Activities.Where(s => s.DeleteStatus == false && s.CreatedDate >= loop && s.CreatedDate <= today).ToList();
+                List<Guid> Srl = Sr.GroupBy(p => p.TaskList).Select(g => g.First()).Select(y => y.TaskList).ToList();
+                foreach (Guid s in Srl)
+                {
+                    OverDictionanry keyValuePairs = new OverDictionanry();
+                    int count = Sr.Where(x => x.TaskList == s).Count();
+                    keyValuePairs.Key = context.FSM_SYS_LookUpValue.Where(x => x.Id == s).FirstOrDefault().Name;
+                    keyValuePairs.value = count;
+
+                    dto.Add(keyValuePairs);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dto;
+        }
+        public async Task<List<OverDictionanry>> GetPieData(BaseRequestDTO<DateRangeDTO> dt)
+        {
+            List<OverDictionanry> dto = new List<OverDictionanry>();
+            try
+            {
+                DateTime today = dt.Data.To.EndOfDay();
+                DateTime loop = dt.Data.From.StartOfDay();
+
+                List<FSM_SER_Activities> Sr = context.FSM_SER_Activities.Where(s => s.DeleteStatus == false && s.CreatedDate >= loop && s.CreatedDate <= today).ToList();
+                List<Guid> Srl = Sr.GroupBy(p => p.Status).Select(g => g.First()).Select(y => y.Status).ToList();
+                foreach (Guid s in Srl)
+                {
+                    OverDictionanry keyValuePairs = new OverDictionanry();
+                    int count = Sr.Where(x => x.Status == s).Count();
+                    keyValuePairs.Key = context.FSM_SYS_LookUpValue.Where(x => x.Id == s).FirstOrDefault().Name;
+                    keyValuePairs.value = count;
+
+                    dto.Add(keyValuePairs);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+            return dto;
+
+        }
+
+        public BaseResponseDTO<List<DropDown>> GetAllDropDownValues()
+        {
+            BaseResponseDTO<List<DropDown>> dto = new BaseResponseDTO<List<DropDown>>();
+            List<DropDown> Ddl = new List<DropDown>();
+            string errorMsg = "No Data Found";
+            DropDown Dd = new DropDown();
+            string[] values = new string[] { "ActivitiesTaskList", "ActivitiesStatus" };
+
+            try
+            {
+                Dd.title = "User";
+                List<ApplicationUser> LUsers = context.Users.Where(x => x.DeleteStatus == false).ToList();
+                Dd.items = new List<DropDownItem>();
+                foreach (ApplicationUser u in LUsers)
+                {
+                    DropDownItem Ddi = new DropDownItem();
+                    Ddi.id = Guid.Parse(u.Id);
+                    Ddi.text = u.FullName;
+                    Dd.items.Add(Ddi);
+                }
+
+                Ddl.Add(Dd);
+
+                List<FSM_SYS_LookUpType> Ltl = context.FSM_SYS_LookUpType.Where(x => values.Contains(x.Name) && x.DeleteStatus == false).ToList();
+                foreach (FSM_SYS_LookUpType lt in Ltl)
+                {
+                    Dd = new DropDown();
+                    Dd.title = lt.Name;
+                    List<FSM_SYS_LookUpValue> Lvl = context.FSM_SYS_LookUpValue.Where(x => x.LookUpType.Id == lt.Id && x.DeleteStatus == false).ToList();
+                    Dd.items = new List<DropDownItem>();
+                    foreach (FSM_SYS_LookUpValue lv in Lvl)
+                    {
+                        DropDownItem Ddi = new DropDownItem();
+                        Ddi.id = lv.Id;
+                        Ddi.text = lv.Name;
+                        Dd.items.Add(Ddi);
+                    }
+
+                    Ddl.Add(Dd);
+                }
+                
+                dto.Data = Ddl;
+                dto.QryResult = new QueryResult().SUCEEDED;
+            }
+            catch (Exception ex)
+            {
+                dto.Data = Ddl;
+                dto.AdditionalData = errorMsg;
+                dto.QryResult = new QueryResult().FAILED;
+            }
+            return dto;
+        }
+
+        public async Task<BaseResponseDTO<bool>> SaveAsync(BaseRequestDTO<ActivitiesDTO> dataToSave)
+        {
+            BaseResponseDTO<bool> BaseDto = new BaseResponseDTO<bool>();
+            try
+            {
+                FSM_SER_Activities ac = new FSM_SER_Activities()
+                {
+                    StartDate = dataToSave.Data.StartDate,
+                    EndDate = dataToSave.Data.EndDate,
+                    Remarks = dataToSave.Data.Remarks,
+                    Status = dataToSave.Data.Status,
+                    TaskList = dataToSave.Data.TaskList,
+                    User = dataToSave.Data.User
+                };
+                context.FSM_SER_Activities.Add(ac);
+                context.SaveChanges();
+                BaseDto.Data = true;
+                BaseDto.QryResult = queryResult.SUCEEDED;
+
+
+            }
+            catch (Exception ex)
+            {
+                BaseDto.Data = false;
+                BaseDto.AdditionalData = "Error Adding Record";
+                BaseDto.QryResult = queryResult.FAILED;
+            }
+            return BaseDto;
+        }
+
+        public async Task<BaseResponseDTO<bool>> UpdateAsync(BaseRequestDTO<ActivitiesDTO> dataToUpdate)
+        {
+            BaseResponseDTO<bool> BaseDto = new BaseResponseDTO<bool>();
+            try
+            {
+                FSM_SER_Activities ac = context.FSM_SER_Activities.Where(x => x.Id.ToString() == dataToUpdate.Data.Id).FirstOrDefault();
+
+                ac.StartDate = dataToUpdate.Data.StartDate;
+                ac.EndDate = dataToUpdate.Data.EndDate;
+                ac.Remarks = dataToUpdate.Data.Remarks;
+                ac.Status = dataToUpdate.Data.Status;
+                ac.TaskList = dataToUpdate.Data.TaskList;
+                ac.User = dataToUpdate.Data.User;
+
+                context.FSM_SER_Activities.Update(ac);
+                context.SaveChanges();
+                BaseDto.Data = true;
+                BaseDto.QryResult = queryResult.SUCEEDED;
+
+            }
+            catch (Exception ex)
+            {
+                BaseDto.Data = false;
+                BaseDto.AdditionalData = "Error Adding Record";
+                BaseDto.QryResult = queryResult.FAILED;
+            }
+            return BaseDto;
+        }
+        public async Task<BaseResponseDTO<ActivitiesDTO>> GetById(string Id)
+        {
+            BaseResponseDTO<ActivitiesDTO> dto = new BaseResponseDTO<ActivitiesDTO>();
+            dto.Data = new ActivitiesDTO();
+            string errorMsg = "No Data Found";
+            try
+            {
+                Guid id =Guid.Parse(Id);
+                FSM_SER_Activities x = context.FSM_SER_Activities.Where(x => x.Id == id).FirstOrDefault();
+                dto.Data.EndDate = x.EndDate;
+                dto.Data.Remarks = x.Remarks;
+                dto.Data.Status = x.Status;
+                dto.Data.TaskList = x.TaskList;
+                dto.Data.Id = x.Id.ToString();
+                dto.Data.User = x.User;
+                dto.QryResult = queryResult.SUCEEDED;
+
+
+            }
+            catch (Exception e)
+            {
+                dto.Data = new ActivitiesDTO();
+                dto.AdditionalData = errorMsg;
+                dto.QryResult = queryResult.FAILED;
+            }
+
+            return dto;
+        }
+        public async Task<BaseResponseDTO<List<ActivitiesListDTO>>> FilterDatatableByPeriod(BaseRequestDTO<SRRange> dt)
+        {
+            BaseResponseDTO<List<ActivitiesListDTO>> dto = new BaseResponseDTO<List<ActivitiesListDTO>>();
+            List<ActivitiesListDTO> result = new List<ActivitiesListDTO>();
+
+            if (dt == null)
+            {
+                dt = new BaseRequestDTO<SRRange>();
+                dt.Data = new SRRange();
+                dt.Data.From = DateTime.Now.AddDays(-14);
+                dt.Data.To = DateTime.Now;
+            }
+
+            dt.Data.From = dt.Data.From.StartOfDay();
+
+            dt.Data.To = dt.Data.To.EndOfDay();
+
+            string errorMsg = "No Data Found";
+            try
+            {
+               List<FSM_SER_Activities> srl = context.FSM_SER_Activities.Where(x => x.DeleteStatus == false && x.CreatedDate >= dt.Data.From && x.CreatedDate <= dt.Data.To && (x.CreatedBy == Guid.Parse(dt.userToken) || x.User == Guid.Parse(dt.userToken))).ToList();
+         //       List<FSM_SER_Activities> srl = srln.GroupBy(x => x.Id).Select(l => l.First()).ToList();
+                foreach (FSM_SER_Activities item in srl)
+                {
+                    try
+                    {
+                        ActivitiesListDTO dtx = new ActivitiesListDTO() 
+                        {
+                            Id = item.Id,
+                            TaskList = context.FSM_SYS_LookUpValue.Where(x => x.Id == item.TaskList).FirstOrDefault().Name,
+                            EndDate = item.StartDate.ToString("dd/MMM/yyyy"),
+                            StartDate = item.StartDate.ToString("dd/MMM/yyyy"),
+                            Remarks = item.Remarks,
+                            Status = context.FSM_SYS_LookUpValue.Where(x => x.Id == item.Status).FirstOrDefault().Name,
+<<<<<<< HEAD
+                            AssignedTo = context.Users.Where(x => x.Id == item.User.ToString()).FirstOrDefault().FullName,
+                            CreatedBy = context.Users.Where(x => x.Id == item.CreatedBy.ToString()).FirstOrDefault().FullName,
+=======
+                            CreatedBy = context.Users.Where(x => x.Id == item.CreatedBy.ToString()).FirstOrDefault().FullName,
+                            AssignedTo = context.Users.Where(x => x.Id == item.User.ToString()).FirstOrDefault().FullName,
+>>>>>>> 2a738c1f399407dc3acb0061618ddfb0083b3563
+                        };
+                        result.Add(dtx);
+                    }
+                    catch (Exception ex)
+                    {
+
+                    }
+
+                }
+
+                dto.Data = result;
+                dto.QryResult = queryResult.SUCEEDED;
+            }
+            catch (Exception ex)
+            {
+                dto.Data = result;
+                dto.AdditionalData = errorMsg;
+                dto.QryResult = queryResult.FAILED;
+            }
+
+            return dto;
+        }
+
+    }
+}

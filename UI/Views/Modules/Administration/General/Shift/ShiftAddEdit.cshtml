@@ -1,0 +1,52 @@
+﻿@using BL.Models.Administration;
+@model ShiftDTO;
+
+<div id="Shift-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Shift Id HIDDEN*@
+        <div class="form-floating d-none">
+            <span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @result = "Id", @id = "Id", @type = "text", @placeholder = "Id" })
+        </div>
+
+        @*Shift Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Resource Type Code", @readonly = "true" })
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Shift Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @result = "Name", @id = "Name", @type = "text", @placeholder = "Name", @required = "required" })
+            <label class="label-floating label-required">Shift Name</label>
+        </div>
+       
+        @*Shift Description*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @result = "Description", @id = "Desc", @type = "text", @placeholder = "Description", @required = "required" })
+            <label class="label-floating label-required">Description</label>
+        </div>
+    
+        @*Shift TimeFrom*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.TimeFrom, "{0:HH:mm}", new { @class = "form-control", @result = "TimeFrom", @id = "TimeFrom", @type = "time", @placeholder = "Time From", @required = "required" })
+            <label class="label-floating label-required">Time From</label>
+        </div>
+
+        @*Shift TimeTo*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.TimeTo, "{0:HH:mm}", new { @class = "form-control", @result = "TimeTo", @id = "TimeTo", @type = "time", @placeholder = "Time To", @required = "required" })
+            <label class="label-floating label-required">Time To</label>
+        </div>
+
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="ShiftAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "Matrix";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+@section CSS{
+    <link rel="stylesheet" href="~/css/Modules/Access/Matrix/Matrix.css" />
+}
+
+
+@*Main Container*@
+<div>
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa fa-folder-tree me-2 fa-1x"></i> Matrix </span>
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+            </div>
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <h6>Tree View</h6>
+    </div>
+
+    <hr />
+    <div class="d-flex justify-content-center matrix-tree">
+        
+        <div id="tree" class="w-100 overflow-scroll"></div>
+
+    </div>
+
+    <div class="instructions">
+        <div class="d-flex justify-content-center">
+            <h6>Matrix Tree Manual</h6>
+        </div>
+        <div id="matrixCarousel" class="carousel carousel-dark slide" data-bs-ride="true">
+           
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="/assets/Modules/Access/Matrix/Carousel/Matrix-Carousel-Create.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/Modules/Access/Matrix/Carousel/Matrix-Carousel-Rename.png" class="d-block w-100" alt="...">
+                </div> 
+                <div class="carousel-item">
+                    <img src="/assets/Modules/Access/Matrix/Carousel/Matrix-Carousel-Delete.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/Modules/Access/Matrix/Carousel/Matrix-Carousel-Cut.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/Modules/Access/Matrix/Carousel/Matrix-Carousel-Copy.png" class="d-block w-100" alt="...">
+                </div>
+                <div class="carousel-item">
+                    <img src="/assets/Modules/Access/Matrix/Carousel/Matrix-Carousel-Paste.png" class="d-block w-100" alt="...">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#matrixCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#matrixCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </div>
+</div>
+
+
+@*Actions*@
+<div class="row action-bar top-action">
+    <button id="value-back-btn" title="Get Data" onclick="TreeView.getData()" class="form-control btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Access/Matrix/Matrix.js" type="module"></script>
+}

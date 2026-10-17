@@ -1,0 +1,45 @@
+﻿@{
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+    ViewData["Title"] = "Equipment Model";
+}
+
+@*Main Container*@
+<div id="">
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa fa-book me-2 fa-1x"></i>Equipment Model</span>
+            <a href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" onclick="EquipmentModel.export()">Export Excel</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+
+    @*Datatable*@
+    <table id="EquipmentModelTable"></table>
+
+</div>
+
+@*Partial View*@
+<div id="partial" class="overlay-partial">
+    <div class="popup">
+        <div class="title">
+            <span class="span-large"><i class="fa fa-book me-2"></i>Equipment Model</span>
+            <a class="close" href="#"><i class="fa fa-close"></i></a>
+        </div>
+        <div class="content">
+        </div>
+    </div>
+</div>
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Administration/General/EquipmentModel/EquipmentModel.js" type="module"></script>
+    <script src="~/Scripts/Modules/Administration/General/EquipmentModel/EquipmentModelAddEdit.js" type="module"></script>
+}

@@ -1,0 +1,39 @@
+﻿@using BL.Models.Administration;
+@model PriorityDTO;
+
+<div id="Priority-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Priority Id HIDDEN*@
+        <div class="form-floating d-none">
+            <span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class = "form-control", @result = "Id", @id = "Id", @type = "text", @placeholder = "Id" })
+        </div>
+
+        @*Priority Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Resource Type Code", @readonly = "true" })
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Priority Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @result = "Name", @id = "Name", @type = "text", @placeholder = "Name", @required = "required" })
+            <label class="label-floating label-required">Name</label>
+        </div>
+
+        @*Priority Description*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @result = "Description", @id = "TypeDesc", @type = "text", @placeholder = "Description" })
+            <label class="label-floating">Description</label>
+        </div>
+    </div>
+</div>
+
+@*Save Action*@
+<div>
+    <div class="justify-content-end my-3 pe-5 row">
+        <button id="value-save-btn" title="Save" onclick="PriorityAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+    </div>
+</div>
+</div>

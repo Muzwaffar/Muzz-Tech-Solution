@@ -1,0 +1,60 @@
+﻿@{
+    ViewData["Title"] = "Element - Form Configuration";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+
+
+<div class="page-container">
+    @*Breadcrumb*@
+    <div class="breadcrumb-container d-flex">
+        <div class="breadcrumb-sub-container">
+            <span class="span-larger"><i class="fa fa-folder-tree me-2 fa-1x"></i> Element - Form Configuration </span>
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            <div class="dropdown-context">
+            </div>
+        </div>
+        <div class="section-container d-flex">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-5">
+            <div class="form-floating">
+                <select class="form-select" id="select-menu" name="menu" Result="menuid">
+                    <option value=""></option>
+                </select>
+                <label for="select-menu">Menu Item</label>
+            </div>
+        </div>
+        <div class="col-5">
+            <div class="form-floating">
+                <select class="form-select" id="select-form" name="form" Result="formid">
+                    <option value=""></option>
+                </select>
+                <label for="select-form">Form Name</label>
+            </div>
+        </div>
+        <div class="col-2">
+            <div class="w-100">
+                <button id="retrieve-btn" title="Retrieve" onclick="ElementFormConfig.retrieve()" class="btn-c-primary form-control my-4 w-100"><i class="fa fa-sync me-2"></i>Retrieve</button>
+            </div>
+        </div>
+    </div>
+
+    <hr class="border-top-dark-grey" />
+
+    <div id="retrived-data">
+      
+    </div>
+</div>
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-cancel-btn" title="Cancel" onclick="ElementFormConfig.cancel()" class="form-control btn-c-error me-3"><i class="fa fa-times me-2"></i>Cancel</button>
+    <button id="value-save-btn" title="Save" onclick="ElementFormConfig.save()" class="form-control btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@*References*@
+@section Scripts{
+    <script src="~/Scripts/Modules/Form/FormConfig/ElementFormConfig/ElementFormConfig.js" type="module"></script>
+}

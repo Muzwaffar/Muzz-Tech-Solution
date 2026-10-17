@@ -1,0 +1,343 @@
+﻿@{
+    ViewData["Title"] = "Section";
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Model Used *@
+@using DAL.Models.Form;
+@model NPF_FRM_Section;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> Section </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: General Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="section-tab" data-bs-toggle="pill" data-bs-target="#details-section" type="button" role="tab" aria-controls="details-section" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+                    @*Section Nav Item: Preview *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link  section-menu" id="preview-tab" data-bs-toggle="pill" data-bs-target="#preview-section" type="button" role="tab" aria-controls="preview-section" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            Preview
+                        </span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="section-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-section" role="tabpanel" aria-labelledby="section-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-general" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-details" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                            <span class="span-medium"> General </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="details">
+                            @*Section Id HIDDEN*@
+                            <div class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "number", @placeholder = "Id"})
+                            </div>
+
+                            @*Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Code", @readonly="true"})
+                                <label>Code</label>
+                            </div>
+
+                            @*Name*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Name"})
+                                <label class="label-required">Name</label>
+                            </div>
+
+                            @*Description*@
+                            <div class="form-floating ">
+                                @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "Description",@placeholder = "Description"})
+                                <label class="">Description</label>
+                            </div>
+
+                            @*Asset Type*@
+                            @*Notification*@
+                            @*Print*@
+
+                        </div>
+                    </div>
+
+                    <div id="scrollspy-element" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#element" aria-expanded="true">
+                            <span class="span-medium"> Elements </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="element">
+                            @*Element Name*@
+                            <div class="form-floating">
+                                <input type="text" class="form-control" elem="Name" id="ElemName" placeholder="Value" />
+                                <label class="label-required">Name</label>
+                            </div>
+
+                            @*Element Type*@
+                            <div class="form-floating">
+                                <select id="select-element-type" class="form-select" name="Id" InputTypeDetails="Id">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-element-type" class="label-required"> Element Type </label>
+                            </div>
+
+                            @*Order*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Order, new { @class="form-control",@result="Order", @id = "Order", @type = "Number", @placeholder = "Order"})
+                                <label class="label-required">Order</label>
+                            </div>
+
+                            @*URL*@
+                            <div id="URLDIV" class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.URL, new { @class="form-control",@result="URL", @id = "URL", @type = "text", @placeholder = "URL"})
+                                <label class="label-required">URL</label>
+                                <span class="naveo-color span-smaller">For Lookup Value the link should contain the type. Ex: /LookUpValue/List?Name=FieldVisitType#</span>
+                            </div>
+
+                            @*Is Listing*@
+                            <div class="form-floating">
+                                <input type="checkbox" class="form-control" IsListing="IsListing" id="IsListing" placeholder="Value" />
+                                <label class="label-checkbox">Is Listing?</label>
+                            </div>
+
+                            @*Listing Name*@
+                            <div id="ListingNameDIV" class="form-floating d-none">
+                                @Html.TextBoxFor(m => m.ListingName, new { @class="form-control",@result="ListingName", @id = "ListingName", @type = "text", @placeholder = "ListingName"})
+                                <label class="label-required">Listing Name</label>
+                            </div>
+
+                            @*Unit Of Measurement*@
+                            <div class="form-floating d-none" id="select-uom-container">
+                                <select id="select-uom" name="Id" class="form-select" LookUpValue="Id">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-uom">Unit Of Measurement Type</label>
+                            </div>
+
+                            @*Notification*@
+                            @*Mobile Checklist*@
+
+                            <hr />
+
+                            <div id="source-param-container" class="w-100 d-none">
+                                @*Source*@
+                                <div class="form-floating">
+                                    <select id="select-source" name="source" class="form-select" source="Id" oninput="SectionAddEdit.getParameterDropdown()">
+                                        <option value=""></option>
+                                    </select>
+                                    <label for="select-source">Source</label>
+                                </div>
+
+                                @*Source Parameter 1*@
+                                <div class="form-floating">
+                                    <select id="select-param-1" class="form-select" name="Id" ParameterList1="Id">
+                                        <option value=""></option>
+                                    </select>
+                                    <label for="select-param-1">Source Parameter</label>
+                                </div>
+
+                                @*Parameter 1*@
+                                <div class="form-floating short-input">
+                                    <textarea class="form-control input-floating" Parameter1="Value" id="Value1" placeholder="Value"></textarea>
+                                    <label class="label-floating">Parameter </label>
+                                </div>
+                            </div>
+                            @*Source Parameter 2*@
+                            @*Parameter 2*@
+
+                            @*Add Data To Table*@
+                            <button id="value-add-btn" title="Add" onclick="SectionAddEdit.addRelation()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Data To Table</button>
+
+                            @*Element Table*@
+                            <div class="w-100">
+                                <table id="relation-Element-Table"></table>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div id="scrollspy-datatable" class="scrollspy-transition d-none">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#datatable" aria-expanded="true">
+                            <span class="span-medium"> Datatable Details</span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="datatable">
+                            @*Element Name*@
+                            <div class="form-floating">
+                                <input type="text" class="form-control" elem="Name" id="ElemNameDT" placeholder="Value" />
+                                <label>Name</label>
+                            </div>
+
+                            @*Element Type*@
+                            <div class="form-floating">
+                                <select id="select-element-typeDT" class="form-select" name="Id" InputTypeDetails="Id">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-element-typeDT"> Element Type </label>
+                            </div>
+
+                            <hr />
+
+                            @*Source*@
+                            <div class="form-floating">
+                                <select id="select-sourceDT" name="source" class="form-select" source="Id" oninput="SectionAddEdit.getParameterDropdownDT()">
+                                    <option value=""></option>
+                                </select>
+                                <label for="elect-sourceDT">Source</label>
+                            </div>
+                                                               
+                            @*Source Parameter 1*@
+                            <div class="form-floating">
+                                <select id="select-param-1DT" name="Id" class="form-select" ParameterList1="Id">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-param-1DT">Source Parameter</label>
+                            </div>
+
+                            @*Parameter 1*@
+                            <div class="form-floating short-input">
+                                <textarea class="form-control input-floating" Parameter1="Value" id="Value1DT" placeholder="Value"></textarea>
+                                <label class="label-floating">Parameter</label>
+                            </div>
+
+                            @*Source Parameter 2*@
+                            @*Parameter 2*@
+
+                            @*Add Data To Table*@
+                            <button id="value-add-DT-btn" title="Add" onclick="SectionAddEdit.addRelationDT()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add Data To Table</button>
+
+                            @*Trial Table*@
+                            <div class="w-100">
+                                <table id="relation-Datatable-Element-Table"></table>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-general">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-details">
+                            <span class="span-medium">General</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-element">
+                            <span class="span-medium">Elements</span>
+                        </a>
+                    </div>
+                    @*scrollspy actions item*@
+                    <div class="m-3 d-none" id="scroll-spy-datatable">
+                        <a href="#scrollspy-datatable">
+                            <span class="span-medium">Datatable Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade" id="preview-section" role="tabpanel" aria-labelledby="preview-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-preview" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-preview" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#preview" aria-expanded="true">
+                            <span class="span-medium"> Prevew </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="preview">
+                            <label>Preview </label>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-preview">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-preview">
+                            <span class="span-medium">Preview</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="SectionAddEdit.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+    <button id="value-save-btn" title="Save" onclick="SectionAddEdit.save()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Form/Section/SectionAddEdit.js" type="module"></script>
+    <script src="~/Scripts/Modules/Form/Section/SectionHelper.js" type="module"></script>
+}

@@ -1,0 +1,53 @@
+﻿@using BL.Models.Administration;
+@model IncidentCodeDTO;
+
+<div id="IncidentCode-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Incident Code Id HIDDEN*@
+        <div class="form-floating d-none">
+            <span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*Incident Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Resource Type Code" , @readonly="true"})
+            <label class="label-floating">Incident Code</label>
+        </div>
+
+        @*Incident Code Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Incident Code Name</label>
+        </div>
+
+        @*Incident Sub Type*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.IncidentSubType, new {@id = "select-incidentsubtype-id"})
+            <select class="form-select" id="select-incidentsubtype" name="Id" Result="IncidentSubType">
+                <option value=""></option>
+            </select>
+            <label for="select-incidentsubtype" class="label-required">Incident Sub Type</label>
+        </div>
+
+        @*Incident Code Description*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "resourceTypeDesc", @type = "text", @placeholder = "Description" })
+            <label class="label-floating">Description</label>
+        </div>
+
+        @*Incident Code Incident Type*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.IncidentType, new { @class="form-control",@result="IncidentType", @id = "IncidentType", @type = "text", @placeholder = "Incident Type" , @readonly="true"})
+            <label class="label-floating label-required">Incident Type</label>
+        </div>
+
+    </div>
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="IncidentCodeAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

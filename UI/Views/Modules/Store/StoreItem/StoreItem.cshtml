@@ -1,0 +1,189 @@
+﻿@{
+    ViewData["Title"] = @ViewBag.Name;
+    Layout = "~/Views/Shared/_LayoutCustom.cshtml";
+}
+@*Model Used *@
+@using BL.Models.Store
+@model StoreItemDTO;
+
+@*Top nav bar Start*@
+<div id="">
+    @*Top nav bar Container*@
+    <div class="breadcrumb-container d-flex">
+        @*Breadcrumb - Left *@
+        <div class="breadcrumb-sub-container">
+            @*Breadcrumb : Text *@
+            <span class="span-larger"> @ViewBag.Name </span>
+            @*Breadcrumb : Action *@
+            <a href="#" role="button" aria-expanded="false"><i class="fa fa-ellipsis-vertical fa-20 ms-2"></i></a>
+            @*Breadcrumb : Dropdown *@
+            <div class="dropdown-context">
+            </div>
+        </div>
+        @*Section - Right *@
+        <div class="section-container d-flex">
+            @*Section Nav : container *@
+            <nav>
+                <div class="nav nav-pill" id="nav-tab" role="tablist">
+                    @*Section Nav Item: Project Info *@
+                    @*IMPORTANT : id  ,target, controls, active class *@
+                    <button class="nav-link active section-menu" id="StoreItem-tab" data-bs-toggle="pill" data-bs-target="#details-StoreItem" type="button" role="tab" aria-controls="details-StoreItem" aria-selected="true">
+                        <span class="span-medium">
+                            @*Section Item: Icon for Status *@
+                            <i class="fa fa-circle-dot me-2"></i>
+                            @*Section Item: Text *@
+                            General Information
+                        </span>
+                    </button>
+
+                </div>
+            </nav>
+        </div>
+    </div>
+</div>
+@*Top nav bar End*@
+
+@*Main Container Start*@
+@*IMPORTANT : id to retrieve data to send to api  *@
+<div class="tab-content " id="store-item-control">
+    @*Main Container scrollspy : Project Info*@
+    <div class="tab-pane fade show active" id="details-StoreItem" role="tabpanel" aria-labelledby="StoreItem-tab">
+        @*scrollspy*@
+        <div class="row content-scrollspy">
+            @*scrollspy content*@
+            <div class="col-10 content-form">
+                <div id="AddEdit-Panel" class="content-panel" data-bs-spy="scroll" data-bs-target="#scrollspy-menu-project" data-bs-offset="0" data-bs-smooth-scroll="true" tabindex="0">
+                    @*scrollspy sub section*@
+                    <div id="scrollspy-details" class="scrollspy-transition">
+                        @*sub section Header*@
+                        <div class="section" data-bs-toggle="collapse" href="#details" aria-expanded="true">
+                            <span class="span-medium"> General Details </span>
+                            <span class="collapsible-icon"></span>
+                        </div>
+                        @*sub section Content*@
+                        <div class="collapse form-panel show" id="details">
+                            @*Code*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Code, new { @class = "form-control", @result = "Code", @id = "Code", @type = "text", @placeholder = "Code", @readonly = true })
+                                <label>Code</label>
+                            </div>
+                            @*Name*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Name, new { @class = "form-control", @result = "Name", @id = "Name", @type = "text", @placeholder = "Name" })
+                                <label class="label-required">Name</label>
+                            </div>
+                            @*Description*@
+                            <div class="form-floating">
+                                @Html.TextBoxFor(m => m.Description, new { @class = "form-control", @result = "Description", @id = "Description", @type = "text", @placeholder = "Description" })
+                                <label>Description</label>
+                            </div>
+                            @*Group Type*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Group, new { @id = "select-Group-id" })
+                                <select class="form-select" id="select-Group" name="Group" result="Group">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Group" class="label-required">Group Type</label>
+                            </div>
+                            @*Category*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Type, new { @id = "select-Category-id" })
+                                <select class="form-select" id="select-Category" name="Category" result="Type">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Category" class="label-required">Category</label>
+                            </div>
+
+                            @*Species*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.Category, new { @id = "select-Species-id" })
+                                <select class="form-select" id="select-Species" name="Species" result="Category">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Species">Species</label>
+                            </div>
+
+                            @*Variety*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.SubCategory, new { @id = "select-Variety-id" })
+                                <select class="form-select" id="select-Variety" name="Variety" result="SubCategory">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-Variety">Variety</label>
+                            </div>
+
+                            @*Uom*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.UOM, new { @id = "select-UOM-id" })
+                                <select class="form-select" id="select-UOM" name="UOM" result="UOM">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-UOM" class="label-required">UOM</label>
+                            </div>
+
+                            @*Uom Details*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.UomDetails, new { @id = "select-UomDetails-id" })
+                                <select class="form-select" id="select-UomDetails" name="UomDetails" result="UomDetails">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-UomDetails" class="label-required">UomDetails</label>
+                            </div>
+
+                            @*Type*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.AnimalProductType, new { @id = "select-AnimalProductType-id" })
+                                <select class="form-select" id="select-AnimalProductType" name="AnimalProductType" result="AnimalProductType">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-AnimalProductType" class="label-required">Type</label>
+                            </div>
+
+                            @*Is Consumable*@
+                            <div class="form-floating">
+                                @Html.CheckBoxFor(m => m.IsConsumable, new { @class = "form-control", @result = "IsConsumable", @id = "IsConsumable", @type = "checkbox", @placeholder = "IsConsumable"})
+                                <label class="label-checkbox label-required">Is Consumable?</label>
+                            </div>
+
+                            @*Parent*@
+                            <div class="form-floating">
+                                @Html.HiddenFor(m => m.ParentItem, new { @id = "select-ParentItem-id" })
+                                <select class="form-select" id="select-ParentItem" name="ParentItem" result="ParentItem">
+                                    <option value=""></option>
+                                </select>
+                                <label for="select-ParentItem">Parent Item</label>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            @*scrollspy action*@
+            <div class="col-2 scrollspy-con scrollspy" id="scrollspy-menu-project">
+                @*scrollspy action : Header*@
+                <span class="naveo-color m-3"> Sections</span>
+                @*scrollspy actions content*@
+                <div class="scrollspy-content">
+                    @*scrollspy actions item*@
+                    <div class="m-3">
+                        <a href="#scrollspy-details">
+                            <span class="span-medium">General Details</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*Main Container End*@
+
+
+@*Actions*@
+<div class="row action-bar">
+    <button id="value-back-btn" title="Back" onclick="StoreItem.back()" class="form-control btn-c-error me-3"><i class="fa fa-chevron-left me-2"></i>Back</button>
+     <button id="value-save-btn" title="Save" onclick="StoreItem.save()" class="form-control noView btn-c-primary me-3"><i class="fa fa-save me-2"></i>Save</button>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/Modules/Store/StoreItem/StoreItem.js" type="module"></script>
+}

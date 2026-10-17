@@ -1,0 +1,66 @@
+﻿@using BL.Models.Administration;
+@model ZoneDTO;
+
+<div id="Zone-AddEdit-Panel">
+    <div class="form-panel">
+
+        @*Zone Id HIDDEN*@
+        <div class="form-floating d-none">
+            <span></span>
+            @Html.TextBoxFor(m => m.Id, new { @class="form-control",@result="Id", @id = "Id", @type = "text", @placeholder = "Id"})
+        </div>
+
+        @*Zone Code*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Code, new { @class="form-control",@result="Code", @id = "Code", @type = "text", @placeholder = "Resource Type Code" , @readonly="true"})
+            <label class="label-floating">Code</label>
+        </div>
+
+        @*Zone Name*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.Name, new { @class="form-control",@result="Name", @id = "Name", @type = "text", @placeholder = "Name" ,@required  = "required"})
+            <label class="label-floating label-required">Zone Name</label>
+        </div>
+
+        @*Zone Type*@
+        <div class="form-floating">
+            @Html.HiddenFor(m => m.ZoneType, new {@id = "select-zonetype-id"})
+            <select class="form-select" id="select-zonetype" name="Id" Result="ZoneType">
+                <option value=""></option>
+            </select>
+            <label for="select-zonetype" class="label-required">Zone Type</label>
+        </div>
+
+        @*Location Type*@
+        <div class="form-floating">
+            @Html.TextBoxFor(m => m.GeomDataText, new {@id = "GeomDataText", @class= "d-none",@result="GeomDataText"})
+            @Html.TextBoxFor(m => m.Type, new { @class="form-control",@result="Type", @id = "Type", @type = "text", @placeholder = "Type" ,@required  = "required", @readonly="true"})
+            <label class="label-floating label-required">Location Type</label>
+        </div>
+
+        @*Hidden Center Point*@
+        @Html.TextBoxFor(m => m.CenterPointLat, new {@id = "CenterPointLat", @class= "d-none",@result="CenterPointLat"})
+        @Html.TextBoxFor(m => m.CenterPointLong, new {@id = "CenterPointLong", @class= "d-none",@result="CenterPointLong"})
+
+        @*Zone Description*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.Description, new { @class="form-control",@result="Description", @id = "resourceTypeDesc", @type = "text", @placeholder = "Description" })
+            <label class="label-floating">Description</label>
+        </div>
+
+
+    </div>
+
+
+    <div class="m-4 mx-5 px-2">
+        <div id="map"></div>
+        <button id="enlarge-map-btn" title="Enlarge Map" onclick="ZoneAddEdit.enlargeManimizeMap()" class="form-control btn-custom-enlarge-map"><i class="fa fa-magnifying-glass me-2"></i><span id="enlarge-minimize">Enlarge Map</span></button>
+
+    </div>
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 row p-pop-btn">
+            <button id="type-save-btn" title="Save" onclick="ZoneAddEdit.saveUpdate()" class="form-control noView btn-c-primary"><i class="fa fa-save me-2"></i>Save</button>
+        </div>
+    </div>
+</div>

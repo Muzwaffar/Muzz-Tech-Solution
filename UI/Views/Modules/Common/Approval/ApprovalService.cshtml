@@ -1,0 +1,57 @@
+﻿@*Model Used *@
+@using BL.Models.Workflow;
+@model WorkFlowDTO;
+
+<div id="Approval-AddEdit-Panel">
+    @Html.HiddenFor(m => m.Id, new {@id = "Approval-Id" })
+    @Html.HiddenFor(m => m.Url, new {@id = "Approval-Url" })
+    @Html.HiddenFor(m => m.CaseStatus, new {@id = "Approval-CaseStatus" })
+    <div class="collapse form-panel show" id="custom">
+
+        @*Approval Remarks*@
+        <div class="form-floating">
+            @Html.TextAreaFor(m => m.ApprovalRemarks, new { @class="form-control",@result="ApprovalRemarks", @id = "ApprovalRemarks",@placeholder = "Remarks"})
+            <label class="">Remarks</label>
+        </div>
+
+        @*Department*@
+        <div class="form-floating">
+            <select class="form-select" id="select-app-department" name="dropdown">
+                <option value=""></option>
+            </select>
+            <label for="select-app-departmentt">Department</label>
+        </div>
+
+        @*Resource Type*@
+        <div class="form-floating">
+            <select class="form-select" id="select-app-resourceType" name="dropdown">
+                <option value=""></option>
+            </select>
+            <label for="select-app-resourceType">Resource Type</label>
+        </div>
+
+        @*Users*@
+        <div class="form-floating">
+            <select class="form-select" id="select-app-users" name="dropdown">
+                <option value=""></option>
+            </select>
+            <label for="select-app-users">Users</label>
+        </div>
+
+        @*Add Data To Table*@
+        <button id="value-add-btn" title="Add" onclick="ApprovalService.addUserToTable()" class="btn-c-primary form-control mt-4 w-100"><i class="fa fa-plus me-2"></i>Add User To Table</button>
+
+        @*Users Table*@
+        <div class="w-100">
+            <table id="UsersDataTable"></table>
+        </div>
+
+    </div>
+
+    @*Save Action*@
+    <div>
+        <div class="justify-content-end my-3 pe-5 row">
+            <button id="type-save-btn" title="Save" onclick="ApprovalService.saveApproval()" class="form-control btn-c-primary"><i class="fa fa-save me-2"></i>Submit</button>
+        </div>
+    </div>
+</div>
