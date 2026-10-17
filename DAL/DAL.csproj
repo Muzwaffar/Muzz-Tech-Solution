@@ -7,6 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Include="bin\Debug\net6.0\DAL.deps.json" />
+    <Content Include="bin\Debug\net6.0\DAL.runtimeconfig.dev.json" />
+    <Content Include="bin\Debug\net6.0\DAL.runtimeconfig.json" />
+    <Content Include="bin\Release\net6.0\DAL.deps.json" />
+    <Content Include="bin\Release\net6.0\DAL.runtimeconfig.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Abstractions" Version="6.0.9" />
@@ -31,6 +39,13 @@
   <ItemGroup>
     <Folder Include="Migrations\" />
     <Folder Include="Models\Form\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="bin\Debug\net6.0\DAL.dll" />
+    <None Include="bin\Debug\net6.0\DAL.pdb" />
+    <None Include="bin\Release\net6.0\DAL.dll" />
+    <None Include="bin\Release\net6.0\DAL.pdb" />
   </ItemGroup>
 
 </Project>
