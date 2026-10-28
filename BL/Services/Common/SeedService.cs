@@ -25,7 +25,7 @@ namespace BL.Services.Common
             try
             {
                 NPFContext context = new NPFContext();
-                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").FirstOrDefault();
+                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").FirstOrDefault();
             }
             catch (Exception e)
             {
@@ -73,13 +73,13 @@ namespace BL.Services.Common
             try
             {
                 NPFContext context = new NPFContext();
-                if (userManager.FindByNameAsync("admin@naveo.mu").Result == null)
+                if (userManager.FindByNameAsync("admin@muzztech.mu").Result == null)
                 {
                     ApplicationUser user = new ApplicationUser();
-                    user.UserName = "admin@naveo.mu";
-                    user.Email = "admin@naveo.mu";
-                    user.NormalizedUserName = "admin@naveo.mu";
-                    user.NormalizedEmail = "admin@naveo.mu";
+                    user.UserName = "admin@muzztech.mu";
+                    user.Email = "admin@muzztech.mu";
+                    user.NormalizedUserName = "admin@muzztech.mu";
+                    user.NormalizedEmail = "admin@muzztech.mu";
                     user.FirstName = "admin";
                     user.Title = string.Empty;
                     user.LastName = "admin";
@@ -110,13 +110,13 @@ namespace BL.Services.Common
 
                     }
                 }
-                if (userManager.FindByNameAsync("superadmin@naveo.mu").Result == null)
+                if (userManager.FindByNameAsync("superadmin@muzztech.mu").Result == null)
                 {
                     ApplicationUser user = new ApplicationUser();
-                    user.UserName = "superadmin@naveo.mu";
-                    user.Email = "superadmin@naveo.mu";
-                    user.NormalizedUserName = "superadmin@naveo.mu";
-                    user.NormalizedEmail = "superadmin@naveo.mu";
+                    user.UserName = "superadmin@muzztech.mu";
+                    user.Email = "superadmin@muzztech.mu";
+                    user.NormalizedUserName = "superadmin@muzztech.mu";
+                    user.NormalizedEmail = "superadmin@muzztech.mu";
                     user.FirstName = "superadmin";
                     user.Title = string.Empty;
                     user.LastName = "superadmin";
@@ -190,7 +190,7 @@ namespace BL.Services.Common
                 {
                     EmailConfiguration config = new EmailConfiguration();
                     config.CompanyId = -1;
-                    config.Username = "reza.dowlut@naveo.mu";
+                    config.Username = "reza.dowlut@muzztech.mu";
                     config.Password = "Nav@Test12345.";
                     config.Port = 587;
                     config.Host = "pro.turbo-smtp.com";
@@ -218,9 +218,9 @@ namespace BL.Services.Common
                 NPFContext context = new NPFContext();
                 List<NPF_SYS_LookUpType> LTl = new List<NPF_SYS_LookUpType>();
                 Guid createdBy = new Guid();
-                if (context.Users.Any(x => x.Email.ToLower() == "admin@naveo.mu"))
+                if (context.Users.Any(x => x.Email.ToLower() == "admin@muzztech.mu"))
                 {
-                    createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                    createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 }
 
                 //Add Name of LookUptype to be seeded in list below
@@ -440,7 +440,7 @@ namespace BL.Services.Common
         public static async void SeedModules(UserManager<ApplicationUser> userManager)
         {
             NPFContext context = new NPFContext();
-            var user = userManager.FindByNameAsync("admin@naveo.mu").Result;
+            var user = userManager.FindByNameAsync("admin@muzztech.mu").Result;
 
             #region Dashboard
             if (!context.NPF_SYS_Modules.Any(x => x.Name == "Dashboard"))
@@ -1059,7 +1059,7 @@ namespace BL.Services.Common
             try
             {
                 NPFContext context = new NPFContext();
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 if (!roleManager.RoleExistsAsync("Administrator").Result)
                 {
                     ApplicationRole role = new ApplicationRole();
@@ -1111,7 +1111,7 @@ namespace BL.Services.Common
             try
             {
                 NPFContext context = new NPFContext();
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 if (!roleManager.RoleExistsAsync("SuperAdministrator").Result)
                 {
                     ApplicationRole role = new ApplicationRole();
@@ -1219,7 +1219,7 @@ namespace BL.Services.Common
                 "NPF_SYS_Rank-RNK","NPF_SYS_Shift-SHT", "NPF_SYS_Vehicle-VEH", "NPF_SYS_Equipment-EQP", "NPF_TRN_Incident-INC","NPF_SYS_Roster-ROS",
                     "NPF_SYS_PDA-PDA","NPF_TRN_IncidentNumber-FC", "NPF_SYS_Priority-PRT"
                 };
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 NPF_SYS_CodeConfiguration cc = context.NPF_SYS_CodeConfiguration.Where(x => x.Name == "Default").FirstOrDefault();
                 if (cc == null)
                 {
@@ -1318,7 +1318,7 @@ namespace BL.Services.Common
             try
             {
                 NPFContext context = new NPFContext();
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
 
                 List<string> SchemeList = new List<string> { "Approval" };
                 foreach (string item in SchemeList)
@@ -1401,7 +1401,7 @@ namespace BL.Services.Common
                     NPF_SYS_GlobalParam GP = new NPF_SYS_GlobalParam();
                     GP.Name = "DefaultPassword";
                     GP.AdminOnly = true;
-                    GP.Value = "Naveo@2022.";
+                    GP.Value = "muzztech@2022.";
                     context.NPF_SYS_GlobalParam.Add(GP);
                     context.SaveChanges();
                 }
@@ -1410,7 +1410,7 @@ namespace BL.Services.Common
                     NPF_SYS_GlobalParam GP = new NPF_SYS_GlobalParam();
                     GP.Name = "ExternalURL";
                     GP.AdminOnly = true;
-                    GP.Value = "https://*****.naveo.mu";
+                    GP.Value = "https://*****.muzztech.mu";
                     context.NPF_SYS_GlobalParam.Add(GP);
                     context.SaveChanges();
                 }
@@ -1426,7 +1426,7 @@ namespace BL.Services.Common
                 {
                     NPF_SYS_GlobalParam GP = new NPF_SYS_GlobalParam();
                     GP.Name = "ApplicationURL";
-                    GP.Value = "https://*****.naveo.mu";
+                    GP.Value = "https://*****.muzztech.mu";
                     context.NPF_SYS_GlobalParam.Add(GP);
                     context.SaveChanges();
                 }
@@ -1452,7 +1452,7 @@ namespace BL.Services.Common
                 {
                     NPF_SYS_GlobalParam GP = new NPF_SYS_GlobalParam();
                     GP.Name = "FleetLoginPayload";
-                    GP.Value = "{\"user\":{\"email\":\"mfrsfems@naveo.mu\",\"password\":\"V+I0GFr9cFGH/FPTxLs80o9ux/78MNQW4e3Mh58c4chNh3bnxe1QNnokWaV9VIZLJfpXK3OFqXRRrJHJzL1MM5wNnQwoFe0OE/sFRsHSSsPrEvU2927KEmqYcFok3w//cT4Nr1WPc17bSD/+XzvnGfBQG9uKj4E+u7KSr0Ep6+I=\"},\"companyToken\":\"hA2.*c9x6a2PgaZMi_6Sg328@1pc35p9\"}";
+                    GP.Value = "{\"user\":{\"email\":\"mfrsfems@muzztech.mu\",\"password\":\"V+I0GFr9cFGH/FPTxLs80o9ux/78MNQW4e3Mh58c4chNh3bnxe1QNnokWaV9VIZLJfpXK3OFqXRRrJHJzL1MM5wNnQwoFe0OE/sFRsHSSsPrEvU2927KEmqYcFok3w//cT4Nr1WPc17bSD/+XzvnGfBQG9uKj4E+u7KSr0Ep6+I=\"},\"companyToken\":\"hA2.*c9x6a2PgaZMi_6Sg328@1pc35p9\"}";
                     GP.Comment = "Fleet Login Payload";
                     context.NPF_SYS_GlobalParam.Add(GP);
                     context.SaveChanges();
@@ -1642,9 +1642,9 @@ namespace BL.Services.Common
 
                 NPFContext context = new NPFContext();
                 Guid createdBy = new Guid();
-                if (context.Users.Any(x => x.Email.ToLower() == "admin@naveo.mu"))
+                if (context.Users.Any(x => x.Email.ToLower() == "admin@muzztech.mu"))
                 {
-                    createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                    createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 }
                 //Add Name of UOM Header to be seeded in list below
                 string[] List = new string[] { "Land", "Weight", "Crop" };
@@ -1730,7 +1730,7 @@ namespace BL.Services.Common
             {
 
                 NPFContext context = new NPFContext();
-                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").FirstOrDefault();
+                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").FirstOrDefault();
                 if (!context.NPF_SYS_ResourceType.Any(x => x.Name == "Officer"))
                 {
                     BaseResponseDTO<string> BaseDtoS = new BaseResponseDTO<string>();
@@ -1814,7 +1814,7 @@ namespace BL.Services.Common
             {
 
                 NPFContext context = new NPFContext();
-                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").FirstOrDefault();
+                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").FirstOrDefault();
                 if (!context.NPF_SYS_StationType.Any(x => x.Name == "Main Fire Station"))
                 {
                     BaseResponseDTO<string> BaseDtoS = new BaseResponseDTO<string>();
@@ -1854,7 +1854,7 @@ namespace BL.Services.Common
             {
 
                 NPFContext context = new NPFContext();
-                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").FirstOrDefault();
+                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").FirstOrDefault();
                 if (!context.NPF_SYS_AssetMake.Any(x => x.Name == "DefaultMake"))
                 {
                     BaseResponseDTO<string> BaseDtoS = new BaseResponseDTO<string>();
@@ -1896,7 +1896,7 @@ namespace BL.Services.Common
             {
 
                 NPFContext context = new NPFContext();
-                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").FirstOrDefault();
+                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").FirstOrDefault();
                 if (!context.NPF_SYS_IncidentType.Any(x => x.Name == "Fire Incident"))
                 {
                     BaseResponseDTO<string> BaseDtoS = new BaseResponseDTO<string>();
@@ -1949,7 +1949,7 @@ namespace BL.Services.Common
             {
                 NPFContext context = new NPFContext();
                 NPF_SYS_GroupMatrix RGM = new NPF_SYS_GroupMatrix();
-                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@naveo.mu").FirstOrDefault();
+                var Usr = context.Users.Where(x => x.Email.ToLower() == "superadmin@muzztech.mu").FirstOrDefault();
                 var SysUsr = context.NPF_SYS_User.Where(x => x.AId == Usr.Id).FirstOrDefault();
                 if (!context.NPF_SYS_GroupMatrix.Any(x => x.GMDescription == "ROOT"))
                 {
@@ -2011,7 +2011,7 @@ namespace BL.Services.Common
             {
                 NPFContext context = new NPFContext();
                 List<NPF_FRM_InputType> Intl = new List<NPF_FRM_InputType>();
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 string[] InputTypeList = new string[] { "Text", "Time", "Number", "Checkbox", "Radio", "Dropdown", "Datatable", "Date", "Label", "Multiline", "Datetime", "Signature", "Attachment" };
                 List<ValueSeeding> InputDetailVall = new List<ValueSeeding>();
                 ValueSeeding InputDetailVal = new ValueSeeding();
@@ -2154,7 +2154,7 @@ namespace BL.Services.Common
             {
                 NPFContext context = new NPFContext();
                 List<NPF_FRM_InputType> Intl = new List<NPF_FRM_InputType>();
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
                 string[] SourceTypeList = new string[] { "Query", "Procedure", "Views" };
                 List<ValueSeeding> InputDetailVall = new List<ValueSeeding>();
                 ValueSeeding SourceVal = new ValueSeeding();
@@ -2223,7 +2223,7 @@ namespace BL.Services.Common
             try
             {
                 NPFContext context = new NPFContext();
-                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@naveo.mu").Select(x => x.Id).FirstOrDefault());
+                Guid createdBy = Guid.Parse(context.Users.Where(x => x.Email.ToLower() == "admin@muzztech.mu").Select(x => x.Id).FirstOrDefault());
 
                 string Param = "";
                 NPF_FRM_ParametersList PL = new NPF_FRM_ParametersList();
